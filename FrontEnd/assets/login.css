@@ -23,6 +23,7 @@ body {
 .login-acces form{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 37px;
 }
 
@@ -48,10 +49,12 @@ body {
 
 .login-acces form input[type="submit"]{
 	height: 36px;
-    border: none
+    border: none;
+    margin: 0;
 }
 
 .login-acces a{
+    margin-top: 28px;
     text-decoration: underline;
 }
 
