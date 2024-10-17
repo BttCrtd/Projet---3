@@ -230,3 +230,7 @@ footer nav ul {
 	align-items: center;
 }
 
+a {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 1);
+}
