@@ -186,3 +186,47 @@ footer nav ul {
 	margin: 2em
 }
 
+/*******************************************************************************************/
+/*** Code Ajouté ***/
+
+.btn-tous{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	min-width: 100px;
+	height: 37px;
+	text-align: center;
+	border: 1px solid #1D6154;
+	border-radius: 60px ;
+}
+
+.other-btn {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	color: #1D6154;
+	background-color: transparent;
+	margin : 2em auto ;
+	min-width: 100px;
+	height: 37px;
+	text-align: center;
+	border: 1px solid #1D6154;
+	border-radius: 60px ;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.filters-contener{
+	width: 585px;
+	display: flex;
+	align-items: center;
+}
+
+#portfolio {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
