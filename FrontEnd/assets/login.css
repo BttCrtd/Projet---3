@@ -33,7 +33,9 @@ body {
     flex-direction: column;
 }
 
-.login-acces form input[type="text"]{
+.login-acces form input[type="text"],
+.login-acces form input[type="password"]
+{
     height: 51px;
     width: 379px;
     outline: none;
@@ -60,4 +62,8 @@ body {
 
 #login footer{
     height: 60px;
+}
+
+#error-message {
+    color: red;
 }

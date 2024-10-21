@@ -27,7 +27,7 @@ function genererProjet(identifiantProjet) {
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionProjet = document.querySelector(".gallery");
     // Réinitialisation de la section 
-    sectionProjet.innerHTML = " ";
+    sectionProjet.innerHTML = "";
     // Récupération des projets depuis l'API
     fetch("http://localhost:5678/api/works")
     .then((response) => {
