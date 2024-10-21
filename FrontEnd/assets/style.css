@@ -47,17 +47,25 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
-	max-width: 1140px;
+body{
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+main,
+footer{
+	margin: auto;
+	max-width: 1140px;
+}
+
 header {
+	max-width: 1140px;
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px auto
 }
+
 section {
 	margin: 50px 0
 }
@@ -238,4 +246,19 @@ input[type="submit"] {
 a {
 	text-decoration: none;
 	color: rgba(0, 0, 0, 1);
+}
+
+.editing-section{
+	width: 100%;
+	height: 59px;
+	display: flex;
+	gap: 21px;
+	align-items: center;
+	justify-content: center;
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(0, 0, 0, 1);
+}
+
+.fa-pen-to-square{
+	color: #fff;
 }

@@ -100,12 +100,36 @@ function genererFiltres(){
 }
 
 
+function SuisJeConnecter(){
+    if (localStorage.getItem('authenticated') === 'true'){
+        console.log('Je suis bien connecter')
+        administatorTools()
+    } else {
+        console.log('Je suis pas connecter')
+    }
+}
 
+function administatorTools (){
+    const body = document.querySelector("body")
+    const afterElement = document.querySelector("header")
+    const editingMode = document.createElement("div")
+    editingMode.classList.add("editing-section")
+    const info = document.createElement("p")
+    const iconInfo = document.createElement("i")
+    iconInfo.classList.add("fa-regular")
+    iconInfo.classList.add("fa-pen-to-square")
+    info.innerText = "Mode édition"
+    editingMode.appendChild(iconInfo);
+    editingMode.appendChild(info)
 
+    body.insertBefore(editingMode, afterElement)
+}
 
 // Appel aux fonctions
 genererFiltres()
 genererProjet()
+SuisJeConnecter()
+
 
 
 

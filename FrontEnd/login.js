@@ -25,10 +25,13 @@ submit.addEventListener("click", (event) => {
                 console.log("Identification réussite ")
                 console.log(reponse)
                 document.getElementById("error-message").innerText = ""
+                localStorage.setItem('authenticated', 'true')
                 window.location.href = "index.html"
+                
             } else {
                 console.log("Erreur dans l’identifiant ou le mot de passe")
                 document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe"
+                localStorage.setItem('authenticated', 'false')
             }
         })
     } catch {
