@@ -159,7 +159,25 @@ genererProjet()
 SuisJeConnecter()
 
 
+function afficherListeProjet(){
+    const galleryListe = document.querySelector(".project-gallery")
+    fetch("http://localhost:5678/api/works")
+    .then((response) => {
+        return response.json();
+    }).then((Listeprojets) => {
+        console.log(Listeprojets)
+        for(projet of Listeprojets) {
+            const imageprojet = document.createElement("img")
+            const urlImage = projet.imageUrl;
+            const altImage = projet.title;
+            imageprojet.src = urlImage;
+            imageprojet.alt = altImage;
+            galleryListe.appendChild(imageprojet)
+        }
+    })
+}
 
+afficherListeProjet()
 
 
 

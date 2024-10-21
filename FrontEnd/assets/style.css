@@ -295,3 +295,77 @@ a {
 #portfolio .edit-new-project h2{
 	margin-bottom: 0;
 }
+
+
+
+
+/*************************   Gestion modale *******************/
+/**************************************************************/
+
+.modale {
+    display: none;
+    position: absolute;
+	width: 100%;
+	height: 380%;
+	top: 59px;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 2;
+}
+
+
+.active {
+    display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup{
+	position: absolute;
+	width: 630px;
+	height: 688px;
+	top: 601px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 10px;
+	z-index: 1;
+}
+
+.popup h3{
+	font-size: 26px;
+}
+
+.project-gallery {
+	width: 420px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+	row-gap: 29px;
+	padding-bottom: 67px;
+	border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
+
+.project-gallery img{
+	height: 102.57px;
+}
+
+.close-modale{
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+}
+
+.close-modale button{
+	background-color: transparent;
+	border: none;
+}
+
+
+.fa-x{
+	color: rgba(0, 0, 0, 1);
+}
