@@ -110,6 +110,7 @@ function SuisJeConnecter(){
 }
 
 function administatorTools (){
+    // bande mode édition
     const body = document.querySelector("body")
     const afterElement = document.querySelector("header")
     const editingMode = document.createElement("div")
@@ -121,8 +122,35 @@ function administatorTools (){
     info.innerText = "Mode édition"
     editingMode.appendChild(iconInfo);
     editingMode.appendChild(info)
-
     body.insertBefore(editingMode, afterElement)
+
+    // bouton modifier
+
+    const porfolioEmplacement = document.getElementById("portfolio")
+    const titleH2 = document.querySelector("#portfolio h2")
+
+    const nvldiv = document.createElement("div")
+    nvldiv.classList.add("edit-new-project")
+    const h2 = document.createElement("h2")
+    h2.innerText = "Mes projets"
+
+    nvldiv.appendChild(h2)
+
+    const btnFiltre = document.querySelector(".filters-contener")
+    const editButton = document.createElement("button")
+    const iconEditBtn = document.createElement("i")
+    iconEditBtn.classList.add("fa-regular")
+    iconEditBtn.classList.add("fa-pen-to-square")
+
+    editButton.classList.add("edit-btn")
+    editButton.innerText ="modifier"
+    editButton.appendChild(iconEditBtn)
+
+    nvldiv.appendChild(editButton)
+
+    porfolioEmplacement.insertBefore(nvldiv, titleH2)
+    porfolioEmplacement.removeChild(titleH2)
+    porfolioEmplacement.removeChild(btnFiltre)
 }
 
 // Appel aux fonctions
