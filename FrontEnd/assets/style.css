@@ -267,6 +267,7 @@ a {
 	height: 18px;
 	width: 84px;
 	color: rgba(0, 0, 0, 1);
+	background-color: transparent;
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: space-between;
