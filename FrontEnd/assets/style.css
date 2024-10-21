@@ -126,6 +126,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 .gallery {
+	min-height: 500px;
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -188,6 +189,10 @@ footer nav ul {
 
 /*******************************************************************************************/
 /*** Code Ajouté ***/
+button,
+input[type="submit"] {
+	cursor: pointer;
+}
 
 .btn-tous{
 	font-family: 'Syne';
