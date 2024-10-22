@@ -167,15 +167,27 @@ function afficherListeProjet(){
     }).then((Listeprojets) => {
         console.log(Listeprojets)
         for(projet of Listeprojets) {
+            const imageProjetContener = document.createElement("div")
+            const binBtn = document.createElement("button")
+            const binIcon = document.createElement("i")
+            binIcon.classList.add("fa-solid")
+            binIcon.classList.add("fa-trash-can")
+            binBtn.appendChild(binIcon)
             const imageprojet = document.createElement("img")
             const urlImage = projet.imageUrl;
             const altImage = projet.title;
             imageprojet.src = urlImage;
             imageprojet.alt = altImage;
-            galleryListe.appendChild(imageprojet)
+            imageProjetContener.id = `${projet.id}`
+            binBtn.id = `${projet.id}`
+            imageProjetContener.appendChild(imageprojet)
+            imageProjetContener.appendChild(binBtn)
+            galleryListe.appendChild(imageProjetContener)
         }
     })
 }
+
+
 
 afficherListeProjet()
 

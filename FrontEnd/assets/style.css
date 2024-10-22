@@ -383,8 +383,33 @@ a {
 	margin-bottom: 67.29px;
 }
 
-.project-contener img{
+.project-contener div {
 	height: 102.57px;
+	position: relative;
+}
+
+.project-contener img{
+	height: 100%;
+}
+
+.project-contener div button{
+	height: 17px;
+	width: 17px;
+	position: absolute;
+	top: 6.43px;
+	right: 6.43px;
+	background-color: rgba(0, 0, 0, 1);
+	border: none;
+	border-radius: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+}
+
+.fa-trash-can{
+	color: rgba(255, 255, 255, 1);
+	font-size: 11px;
 }
 
 .btn-popup{
@@ -414,6 +439,15 @@ a {
 	display: flex !important;;
 }
 
+.popup-add-project .close-modale{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.fa-arrow-left{
+	font-size: 21px;
+}
 
 .add-photo-section{
 	width: 420px;
@@ -491,14 +525,4 @@ a {
 .validation-btn {
 	background-color: rgba(167, 167, 167, 1);
 	border-color: rgba(167, 167, 167, 1);
-}
-
-.popup-add-project .close-modale{
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-}
-
-.fa-arrow-left{
-	font-size: 21px;
 }
