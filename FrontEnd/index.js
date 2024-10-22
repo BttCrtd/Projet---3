@@ -187,9 +187,28 @@ function afficherListeProjet(){
     })
 }
 
+function choiceCategories (){
+    const formSelect = document.getElementById("choice-category")
+    
+    const optionCateggory = document.createElement("option")
+    optionCateggory.value = ""
+    formSelect.appendChild(optionCateggory)
 
+    fetch("http://localhost:5678/api/categories")
+    .then((response) => {
+        return response.json();
+    }).then((filtres) => {
+        for(filtre of filtres){
+            const optionCateggory = document.createElement("option")
+            optionCateggory.value = `${filtre.id}`
+            optionCateggory.innerText = `${filtre.name}`
+            formSelect.appendChild(optionCateggory)
+        }
+    })
+}
 
 afficherListeProjet()
+choiceCategories()
 
 
 
