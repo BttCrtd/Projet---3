@@ -61,7 +61,56 @@ function afficherGaleriePhoto(){
     })
 }
 
+function afficherListeProjet(){
+    const galleryListe = document.querySelector(".project-contener")
+    fetch("http://localhost:5678/api/works")
+    .then((response) => {
+        return response.json();
+    }).then((Listeprojets) => {
+        console.log(Listeprojets)
+        for(projet of Listeprojets) {
+            const imageProjetContener = document.createElement("div")
+            const binBtn = document.createElement("button")
+            const binIcon = document.createElement("i")
+            binIcon.classList.add("fa-solid")
+            binIcon.classList.add("fa-trash-can")
+            binBtn.appendChild(binIcon)
+            const imageprojet = document.createElement("img")
+            const urlImage = projet.imageUrl;
+            const altImage = projet.title;
+            imageprojet.src = urlImage;
+            imageprojet.alt = altImage;
+            imageProjetContener.id = `${projet.id}`
+            binBtn.id = `${projet.id}`
+            imageProjetContener.appendChild(imageprojet)
+            imageProjetContener.appendChild(binBtn)
+            galleryListe.appendChild(imageProjetContener)
+        }
+    })
+}
+
+function choiceCategories (){
+    const formSelect = document.getElementById("choice-category")
+
+    const optionCateggory = document.createElement("option")
+    optionCateggory.value = ""
+    formSelect.appendChild(optionCateggory)
+
+    fetch("http://localhost:5678/api/categories")
+    .then((response) => {
+        return response.json();
+    }).then((filtres) => {
+        for(filtre of filtres){
+            const optionCateggory = document.createElement("option")
+            optionCateggory.value = `${filtre.id}`
+            optionCateggory.innerText = `${filtre.name}`
+            formSelect.appendChild(optionCateggory)
+        }
+    })
+}
+
 initAddEventListenerModale()
 addPhoto()
 afficherGaleriePhoto()
-
+afficherListeProjet()
+choiceCategories()
