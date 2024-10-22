@@ -321,7 +321,7 @@ a {
 	align-items: center;
 }
 
-.popup{
+.modale section{
 	position: absolute;
 	width: 578px;
 	height: 618px;
@@ -332,7 +332,8 @@ a {
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 10px;
 	z-index: 1;
-	padding:26px
+	padding:26px;
+	margin: 0;
 }
 
 .close-modale{
@@ -355,31 +356,56 @@ a {
 	color: rgba(0, 0, 0, 1);
 }
 
-.popup h3{
+.modale h3{
 	font-size: 26px;
 	margin-bottom: 46px;
 }
 
 .project-gallery {
 	width: 420px;
+	height: 424px;
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	justify-content: space-between;
-	row-gap: 29px;
-	padding-bottom: 67px;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 30px;
 	border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
-.project-gallery img{
+.project-contener{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	flex-wrap: wrap;
+	row-gap: 29px;
+	margin-bottom: 67.29px;
+}
+
+.project-contener img{
 	height: 102.57px;
 }
 
-.add-photo{
+.btn-popup{
 	width: 40%;
 	height: 36px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	margin : 2em auto ;
+	min-width: 100px;
 	font-size: 14px;
-	margin-top: 33px;
+	text-align: center;
+	border: 1px solid #1D6154;
+	border-radius: 60px ;
+	margin: 33px 0 19px 0;
+	padding: 0;
+}
+
+.add-photo{
+	background-color: rgba(29, 97, 84, 1);
+	border-color: rgba(29, 97, 84, 1);
 }
 
 /********* Ajout photo modale ********/
@@ -389,25 +415,6 @@ a {
 }
 
 
-.popup-add-project{
-	position: absolute;
-	width: 578px;
-	height: 618px;
-	top: 660px;
-	display: none;
-	flex-direction: column;
-	align-items: center;
-	background-color: rgba(255, 255, 255, 1);
-	border-radius: 10px;
-	z-index: 1;
-	padding:26px
-}
-
-.popup-add-project h3{
-	font-size: 26px;
-	margin-bottom: 46px;
-}
-
 .add-photo-section{
 	width: 420px;
 	height: 169px;
@@ -415,7 +422,6 @@ a {
 	color: rgba(68, 68, 68, 1);
 	display: flex;
 	align-items: center;
-	margin-bottom: 30px;
 }
 
 .add-photo-here{
@@ -461,7 +467,6 @@ a {
 	align-items: center;
 	gap: 21px;
 	padding-bottom: 47px;
-	border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
 .element-form-contener{
@@ -484,11 +489,7 @@ a {
 
 
 .validation-btn {
-	width: 40%;
-	height: 36px;
-	font-size: 14px;
 	background-color: rgba(167, 167, 167, 1);
 	border-color: rgba(167, 167, 167, 1);
-	margin-top: 33px
 }
 

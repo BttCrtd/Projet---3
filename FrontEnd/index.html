@@ -66,7 +66,7 @@
 </footer>
 
 <div class="modale">
-	<div class="popup">
+	<section class="popup">
 		<div class="close-modale">
 			<button>
 				<i class="fa-solid fa-x"></i>
@@ -74,45 +74,48 @@
 		</div>
 		<h3>Galerie photo</h3>
 		<div class="project-gallery">
-			
+			<div class="project-contener">
 
+			</div>
 		</div>
-		<button class="btn-tous add-photo">Ajouter une photo</button>
-	</div>
+		<button class="btn-popup add-photo">Ajouter une photo</button>
+	</section>
 	
-	<div class="popup-add-project">
+	<section class="popup-add-project">
 		<div class="close-modale">
 			<button>
 				<i class="fa-solid fa-x"></i>
 			</button>
 		</div>
 		<h3>Ajout photo</h3>
-		<div class="add-photo-section">
-			<div class="add-photo-here">
-				<div class="icon-contener">
-					<i class="fa-regular fa-image"></i>
+		<div class="project-gallery">
+			<div class="add-photo-section">
+				<div class="add-photo-here">
+					<div class="icon-contener">
+						<i class="fa-regular fa-image"></i>
+					</div>
+					<button class="plusAddPhoto">+ Ajouter photo</button>
+					<p>jpg, png : 4mo max</p>
 				</div>
-				<button class="plusAddPhoto">+ Ajouter photo</button>
-				<p>jpg, png : 4mo max</p>
 			</div>
+			<form>
+				<div class="element-form-contener">
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="title">
+				</div>
+				<div class="element-form-contener">
+					<label for="">Catégorie</label>
+					<select name="category" id="choice-category">
+						<option value="" selected></option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hotels & restaurants</option>
+					</select>
+				</div>
+			</form>
 		</div>
-		<form>
-			<div class="element-form-contener">
-				<label for="title">Titre</label>
-				<input type="text" name="title" id="title">
-			</div>
-			<div class="element-form-contener">
-				<label for="">Catégorie</label>
-				<select name="category" id="choice-category">
-					<option value="" selected></option>
-					<option value="1">Objets</option>
-					<option value="2">Appartements</option>
-					<option value="3">Hotels & restaurants</option>
-				</select>
-			</div>
-		</form>
-		<button class="btn-tous validation-btn">Valider</button>
-	</div>
+		<button class="btn-popup validation-btn">Valider</button>
+	</section>
 </div>
 </body>
 </html>

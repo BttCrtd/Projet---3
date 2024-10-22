@@ -160,7 +160,7 @@ SuisJeConnecter()
 
 
 function afficherListeProjet(){
-    const galleryListe = document.querySelector(".project-gallery")
+    const galleryListe = document.querySelector(".project-contener")
     fetch("http://localhost:5678/api/works")
     .then((response) => {
         return response.json();
