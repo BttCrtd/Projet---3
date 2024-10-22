@@ -493,3 +493,12 @@ a {
 	border-color: rgba(167, 167, 167, 1);
 }
 
+.popup-add-project .close-modale{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.fa-arrow-left{
+	font-size: 21px;
+}

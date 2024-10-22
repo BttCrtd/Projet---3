@@ -4,8 +4,14 @@ function afficherModale(){
 }
 
 function cachermodale(){
+    const popupModale = document.querySelector(".popup")
+    const popudAddProject = document.querySelector('.popup-add-project')
     let modalePopup = document.querySelector('.modale')
     modalePopup.classList.remove("active")
+    if(popupModale.classList !== 'popup-active'){
+        popupModale.classList.add("popup-active")
+        popudAddProject.classList.remove('popup-active')
+    }
 }
 
 function initAddEventListenerModale(){
@@ -13,17 +19,23 @@ function initAddEventListenerModale(){
     const modalePopup = document.querySelector(".modale")
     const popupModale = document.querySelector(".popup")
     const closeButton = document.querySelector(".fa-x")
+    const closeButton2 = document.querySelector(".popup-add-project .fa-x")
     buttonEdit.addEventListener("click", () => {
         afficherModale()
         popupModale.classList.add("popup-active")
     })
     modalePopup.addEventListener("click", (event) => {
-        if(event.target === modalePopup || event.targer === closeButton){
+        if(event.target === modalePopup){
             cachermodale()
         }
     })
     closeButton.addEventListener("click", (event) => {
         if(event.target === closeButton){
+            cachermodale()
+        }
+    }) 
+    closeButton2.addEventListener("click", (event) => {
+        if(event.target === closeButton2){
             cachermodale()
         }
     }) 
@@ -39,6 +51,17 @@ function addPhoto(){
     })
 }
 
+function afficherGaleriePhoto(){
+    const backBtn = document.querySelector(".fa-arrow-left")
+    const popupModale = document.querySelector(".popup")
+    const popudAddProject = document.querySelector('.popup-add-project')
+    backBtn.addEventListener("click", () => {
+        popudAddProject.classList.remove('popup-active')
+        popupModale.classList.add('popup-active')
+    })
+}
+
 initAddEventListenerModale()
 addPhoto()
+afficherGaleriePhoto()
 
