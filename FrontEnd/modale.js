@@ -111,6 +111,15 @@ function afficherListeProjet(){
                         'Accept': '*/*',
                     }
                 })
+                .then((reponse) =>{
+                    if(reponse.ok){
+                        const deltedProject = document.getElementById(btnId);
+                        if (deltedProject) {
+                            galleryListe.removeChild(deltedProject);
+                            genererProjet()
+                        }
+                    }
+                })
             })
         })
         // Fin gestion supression des projet
@@ -192,11 +201,12 @@ function addNewProject (){
     })
 }
 
-addNewProject()
+
 
 
 initAddEventListenerModale()
 addPhoto()
+addNewProject()
 afficherGaleriePhoto()
 afficherListeProjet()
 addImage()
