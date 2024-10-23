@@ -1,9 +1,14 @@
+import {FicheProjet, genererProjet} from "./index.js"
+
 function afficherModale(){
     let modalePopup = document.querySelector('.modale')
     modalePopup.classList.add("active")
 }
 
 function cachermodale(){
+    const onladPhoto = document.querySelector(".add-photo-here")
+    const inputFile = document.getElementById('fileInput')
+    const preview = document.getElementById('preview')
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
     let modalePopup = document.querySelector('.modale')
@@ -11,6 +16,10 @@ function cachermodale(){
     if(popupModale.classList !== 'popup-active'){
         popupModale.classList.add("popup-active")
         popudAddProject.classList.remove('popup-active')
+        onladPhoto.style.display = 'flex'
+        inputFile.value = ''
+        preview.src =''
+        preview.style.display = 'none'
     }
 }
 
@@ -68,7 +77,7 @@ function afficherListeProjet(){
         return response.json();
     }).then((Listeprojets) => {
         console.log(Listeprojets)
-        for(projet of Listeprojets) {
+        for(let projet of Listeprojets) {
             const imageProjetContener = document.createElement("div")
             const binBtn = document.createElement("button")
             const binIcon = document.createElement("i")
@@ -82,10 +91,29 @@ function afficherListeProjet(){
             imageprojet.alt = altImage;
             imageProjetContener.id = `${projet.id}`
             binBtn.id = `${projet.id}`
+            binBtn.classList.add("delet-btn")
             imageProjetContener.appendChild(imageprojet)
             imageProjetContener.appendChild(binBtn)
             galleryListe.appendChild(imageProjetContener)
         }
+
+        // Gestion pour la suppression des projets
+
+        const deletBtn = document.querySelectorAll(".delet-btn")
+        deletBtn.forEach(button => {
+            button.addEventListener("click", () => {
+                const btnId = button.id;
+                fetch(`http://localhost:5678/api/works/${btnId}` , {
+                    method: "DELETE",
+                    body: btnId,
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Remplace <ton_token_ici> par ton vrai token
+                        'Accept': '*/*',
+                    }
+                })
+            })
+        })
+        // Fin gestion supression des projet
     })
 }
 
@@ -100,7 +128,7 @@ function choiceCategories (){
     .then((response) => {
         return response.json();
     }).then((filtres) => {
-        for(filtre of filtres){
+        for(let filtre of filtres){
             const optionCateggory = document.createElement("option")
             optionCateggory.value = `${filtre.id}`
             optionCateggory.innerText = `${filtre.name}`
@@ -109,8 +137,70 @@ function choiceCategories (){
     })
 }
 
+function addImage(){
+    const addPhoto = document.querySelector(".plusAddPhoto")
+    const onladPhoto = document.querySelector(".add-photo-here")
+    const inputFile = document.getElementById('fileInput')
+    const preview = document.getElementById('preview')
+    addPhoto.addEventListener("click", () => {
+        inputFile.click();
+    })
+    inputFile.addEventListener('change', (event) =>{
+        const fichier = event.target.files[0];
+
+        if(fichier) {
+            const UrlImg = new FileReader();
+            UrlImg.onload  = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'flex';
+            }
+        onladPhoto.style.display ='none'
+        UrlImg.readAsDataURL(fichier)
+        }
+        
+    })
+}
+
+
+function addNewProject (){
+    const sendNewProject = document.querySelector(".validation-btn")
+
+    
+    sendNewProject.addEventListener("click", () => {
+        const imgSrc = document.getElementById('fileInput')
+        const titileProjet = document.getElementById("title")
+        const catégorieProjet = document.getElementById("choice-category")
+        const formData = new FormData()
+
+        formData.append('image', imgSrc.files[0]); // Ajouter le fichier image
+        formData.append('title', titileProjet.value); // Ajouter le titre
+        formData.append('category', parseInt(catégorieProjet.value));
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        })
+        .then((reponse) => {
+            console.log(reponse)
+            console.log(imgSrc.files[0])
+            console.log(titileProjet.value)
+            console.log(catégorieProjet.value)
+        })
+    })
+}
+
+addNewProject()
+
+
 initAddEventListenerModale()
 addPhoto()
 afficherGaleriePhoto()
 afficherListeProjet()
+addImage()
 choiceCategories()
+
+
+

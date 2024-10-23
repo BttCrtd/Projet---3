@@ -1,5 +1,5 @@
 ///////////////////////////////////// Fonction pour générer une fiche projet /////////////////////////////////////
-function FicheProjet (nomProjet, Listeprojets) {
+export function FicheProjet (nomProjet, Listeprojets) {
     for(const projet of Listeprojets){
         if (nomProjet === projet.title){
             // Création d'une balise dédiée à un projet
@@ -23,7 +23,7 @@ function FicheProjet (nomProjet, Listeprojets) {
 }
 
 ///////////////////////////////////// Fonction qui génére les fiches projets /////////////////////////////////////
-function genererProjet(identifiantProjet) {
+export function genererProjet(identifiantProjet) {
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionProjet = document.querySelector(".gallery");
     // Réinitialisation de la section 

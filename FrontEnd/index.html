@@ -9,8 +9,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="index.js" defer></script>
-	<script src="modale.js" defer></script>
+	<script type="module" src="index.js" defer></script>
+	<script type="module" src="modale.js" defer></script>
 </head>
 <body>
 <header>
@@ -93,12 +93,16 @@
 		<h3>Ajout photo</h3>
 		<div class="project-gallery">
 			<div class="add-photo-section">
-				<div class="add-photo-here">
+				<div class="add-photo-here" style="display: flex;">
 					<div class="icon-contener">
 						<i class="fa-regular fa-image"></i>
 					</div>
 					<button class="plusAddPhoto">+ Ajouter photo</button>
 					<p>jpg, png : 4mo max</p>
+				</div>
+				<div class="viewPhoto">
+					<input type="file" id="fileInput">
+					<img id="preview" src="" alt="Prévisualisation de l'image" style="max-width: 200px; display: none;">
 				</div>
 			</div>
 			<form>
