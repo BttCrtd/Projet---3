@@ -101,6 +101,7 @@ function afficherGaleriePhoto(){
 
 function afficherListeProjet(){
     const galleryListe = document.querySelector(".project-contener")
+    galleryListe.innerHTML = ''
     fetch("http://localhost:5678/api/works")
     .then((response) => {
         return response.json();
@@ -235,6 +236,9 @@ function addNewProject (){
                 errorPhoto.innerText = ""
                 errorTitle.innerText = ""
                 errorCategory.innerText = ""
+                genererProjet()
+                afficherListeProjet()
+                
             } else {
                 if (imgSrc.files.length === 0){
                     errorPhoto.innerText = "Veuillez choisir une photo"
