@@ -6,6 +6,7 @@ function afficherModale(){
 }
 
 function cachermodale(){
+    const operationStatus = document.getElementById("operation-status")
     const errorCategory = document.getElementById("error-category")
     const errorTitle = document.getElementById("error-title")
     const errorPhoto = document.getElementById("error-photo")
@@ -27,6 +28,7 @@ function cachermodale(){
         errorPhoto.innerText = ""
         errorTitle.innerText = ""
         errorCategory.innerText = ""
+        operationStatus.innerText = ''
     }
 }
 
@@ -58,10 +60,30 @@ function initAddEventListenerModale(){
 }
 
 function addPhoto(){
+    const viewPhoto = document.querySelector(".viewPhoto")
+    const onladPhoto = document.querySelector(".add-photo-here")
+    const operationStatus = document.getElementById("operation-status")
+    const errorCategory = document.getElementById("error-category")
+    const errorTitle = document.getElementById("error-title")
+    const errorPhoto = document.getElementById("error-photo")
+    const preview = document.getElementById('preview')
+    const imgSrc = document.getElementById('fileInput')
+    const titleProject = document.getElementById("title")
+    const catégorieProjet = document.getElementById("choice-category")
     const BtnAddPhoto = document.querySelector(".add-photo")
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
     BtnAddPhoto.addEventListener("click", () => {
+        operationStatus.innerText = ""
+        viewPhoto.classList.remove("active")
+        onladPhoto.classList.add("active")
+        errorTitle.innerText = ''
+        errorPhoto.innerText = ''
+        errorCategory.innerText = ''
+        preview.src = ''
+        imgSrc.value = ''
+        titleProject.value = ''
+        catégorieProjet.value = ''
         popudAddProject.classList.add('popup-active')
         popupModale.classList.remove('popup-active')
     })
@@ -154,6 +176,7 @@ function choiceCategories (){
 }
 
 function addImage(){
+    const errorPhoto = document.getElementById("error-photo")
     const addPhoto = document.querySelector(".plusAddPhoto")
     const onladPhoto = document.querySelector(".add-photo-here")
     onladPhoto.classList.add("active")
@@ -171,6 +194,7 @@ function addImage(){
             UrlImg.onload  = function (e) {
                 preview.src = e.target.result;
                 viewPhoto.classList.add("active")
+                errorPhoto.innerText = ""
             }
         onladPhoto.classList.remove("active");
         UrlImg.readAsDataURL(fichier)
@@ -183,6 +207,7 @@ function addImage(){
 function addNewProject (){
     const sendNewProject = document.querySelector(".validation-btn") 
 
+    const operationStatus = document.getElementById("operation-status")
     const errorPhoto = document.getElementById("error-photo")
     const errorTitle = document.getElementById("error-title")
     const errorCategory = document.getElementById("error-category")
@@ -206,10 +231,10 @@ function addNewProject (){
         })
         .then((reponse) => {
             if(reponse.ok){
-                console.log(imgSrc.files[0])
-                console.log(titleProject.value)
-                console.log(catégorieProjet.value)
-                console.log(reponse)
+                operationStatus.innerText = "Le projet à bien été ajouté"
+                errorPhoto.innerText = ""
+                errorTitle.innerText = ""
+                errorCategory.innerText = ""
             } else {
                 if (imgSrc.files.length === 0){
                     errorPhoto.innerText = "Veuillez choisir une photo"
@@ -228,6 +253,10 @@ function addNewProject (){
                 }
             }
             
+        })
+        .catch((error) => {
+            console.log ("Erreur lors de l'ajout du projet :", error)
+            operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard."
         })
     })
 }

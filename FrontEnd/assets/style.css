@@ -542,6 +542,7 @@ a {
 
 
 .validation-btn {
+	margin: 0px 0 19px 0;
 	background-color: rgba(167, 167, 167, 1);
 	border-color: rgba(167, 167, 167, 1);
 }
@@ -569,5 +570,13 @@ a {
 	color: red;
 	font-size: 10px;
 	text-align: left;
+}
+
+#operation-status{
+	height: 13px;
+	color: green;
+	font-size: 13px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
