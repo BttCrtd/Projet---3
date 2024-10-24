@@ -1,104 +1,101 @@
 import {FicheProjet, genererProjet} from "./index.js"
 
-function afficherModale(){
-    let modalePopup = document.querySelector('.modale')
+// Fonction permettant d'ouvrir de la modale
+function modalDisplay(){
+    const modalePopup = document.querySelector('.modale')
     modalePopup.classList.add("active")
 }
 
-function cachermodale(){
-    const operationStatus = document.getElementById("operation-status")
-    const errorCategory = document.getElementById("error-category")
-    const errorTitle = document.getElementById("error-title")
-    const errorPhoto = document.getElementById("error-photo")
-    const viewPhoto = document.querySelector(".viewPhoto")
-    const onladPhoto = document.querySelector(".add-photo-here")
-    const inputFile = document.getElementById('fileInput')
-    const preview = document.getElementById('preview')
+// Fonction permettant de fermer la modale 
+function modalHide(){
+    // Fermeture de la modale
+    const modalePopup = document.querySelector('.modale')
+    modalePopup.classList.remove("active")
+    // Réinitialisation de l'affichage de la popup
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
-    let modalePopup = document.querySelector('.modale')
-    modalePopup.classList.remove("active")
     if(popupModale.classList !== 'popup-active'){
         popupModale.classList.add("popup-active")
         popudAddProject.classList.remove('popup-active')
-        onladPhoto.classList.add("active")
-        inputFile.value = ''
-        preview.src =''
-        viewPhoto.classList.remove("active")
-        errorPhoto.innerText = ""
-        errorTitle.innerText = ""
-        errorCategory.innerText = ""
-        operationStatus.innerText = ''
+        // Réinitialisation des messages d'erreurs 
+        resetErrorMessages()
+        // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
+        modaleManagement()
     }
 }
 
+// Function gérant l'ouverture et la fermeture de la modale
 function initAddEventListenerModale(){
+    // Ciblage du bouton permettant d'afficher la modale
     const buttonEdit = document.querySelector(".edit-btn")
-    const modalePopup = document.querySelector(".modale")
+    // Sélection de la popup à afficher
     const popupModale = document.querySelector(".popup")
+    // Ciblage des différents éléments servant à fermer la modale
+    const modalePopup = document.querySelector(".modale")
     const closeButton = document.querySelector(".fa-x")
     const closeButton2 = document.querySelector(".popup-add-project .fa-x")
+    // Gestion de l'affichage de la modale
     buttonEdit.addEventListener("click", () => {
-        afficherModale()
+        modalDisplay()
+        // Affichage de la popup 'Galerie Photo'
         popupModale.classList.add("popup-active")
     })
+    // Gestion de la fermeture de la modale
     modalePopup.addEventListener("click", (event) => {
         if(event.target === modalePopup){
-            cachermodale()
+            modalHide()
         }
     })
     closeButton.addEventListener("click", (event) => {
         if(event.target === closeButton){
-            cachermodale()
+            modalHide()
         }
     }) 
     closeButton2.addEventListener("click", (event) => {
         if(event.target === closeButton2){
-            cachermodale()
+            modalHide()
         }
     }) 
 }
 
+// Function permettant de naviguer de Galerie Photo à Ajouter photo
 function addPhoto(){
-    const viewPhoto = document.querySelector(".viewPhoto")
-    const onladPhoto = document.querySelector(".add-photo-here")
-    const operationStatus = document.getElementById("operation-status")
-    const errorCategory = document.getElementById("error-category")
-    const errorTitle = document.getElementById("error-title")
-    const errorPhoto = document.getElementById("error-photo")
-    const preview = document.getElementById('preview')
-    const imgSrc = document.getElementById('fileInput')
+    const popupModale = document.querySelector(".popup")
+    const popudAddProject = document.querySelector('.popup-add-project')
+
+    // Ciblage des éléments du formulaire
     const titleProject = document.getElementById("title")
     const catégorieProjet = document.getElementById("choice-category")
+    
     const BtnAddPhoto = document.querySelector(".add-photo")
-    const popupModale = document.querySelector(".popup")
-    const popudAddProject = document.querySelector('.popup-add-project')
     BtnAddPhoto.addEventListener("click", () => {
-        operationStatus.innerText = ""
-        viewPhoto.classList.remove("active")
-        onladPhoto.classList.add("active")
-        errorTitle.innerText = ''
-        errorPhoto.innerText = ''
-        errorCategory.innerText = ''
-        preview.src = ''
-        imgSrc.value = ''
+        // Réinitialisation des messages d'erreurs 
+        resetErrorMessages()
+        // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
+        modaleManagement()
+        // Gestion de l'affichage des popups"
+        popupModale.classList.remove('popup-active')
+        popudAddProject.classList.add('popup-active')
+        // Réinitialisation des valeurs du formulaire
         titleProject.value = ''
         catégorieProjet.value = ''
-        popudAddProject.classList.add('popup-active')
-        popupModale.classList.remove('popup-active')
     })
 }
 
+// Function permettant de naviguer de Ajouter Photo à Galerie Photo
 function afficherGaleriePhoto(){
-    const backBtn = document.querySelector(".fa-arrow-left")
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
+
+    const backBtn = document.querySelector(".fa-arrow-left")
     backBtn.addEventListener("click", () => {
-        popudAddProject.classList.remove('popup-active')
+        // Gestion d'apparance de la modale Ajouter photo
         popupModale.classList.add('popup-active')
+        popudAddProject.classList.remove('popup-active')
     })
 }
 
+// Function permettant de récupérer la liste des projet et de l'afficher dans Galerie Photo
 function afficherListeProjet(){
     const galleryListe = document.querySelector(".project-contener")
     galleryListe.innerHTML = ''
@@ -108,57 +105,72 @@ function afficherListeProjet(){
     }).then((Listeprojets) => {
         console.log(Listeprojets)
         for(let projet of Listeprojets) {
+            // Création d'un conteneur pour le projet
             const imageProjetContener = document.createElement("div")
+            imageProjetContener.id = `${projet.id}`
+            // Creation de l'image du projet
+            const imageprojet = document.createElement("img")
+            imageprojet.src = projet.imageUrl;
+            imageprojet.alt = projet.title;
+            // Creation du bouton pour supprimer l'image
             const binBtn = document.createElement("button")
+            binBtn.id = `${projet.id}`
+            binBtn.classList.add("delet-btn")
             const binIcon = document.createElement("i")
             binIcon.classList.add("fa-solid")
             binIcon.classList.add("fa-trash-can")
             binBtn.appendChild(binIcon)
-            const imageprojet = document.createElement("img")
-            const urlImage = projet.imageUrl;
-            const altImage = projet.title;
-            imageprojet.src = urlImage;
-            imageprojet.alt = altImage;
-            imageProjetContener.id = `${projet.id}`
-            binBtn.id = `${projet.id}`
-            binBtn.classList.add("delet-btn")
+            // Assemblage et ajout du projet dans la gallerie
             imageProjetContener.appendChild(imageprojet)
             imageProjetContener.appendChild(binBtn)
             galleryListe.appendChild(imageProjetContener)
         }
-
-        // Gestion pour la suppression des projets
-
-        const deletBtn = document.querySelectorAll(".delet-btn")
-        deletBtn.forEach(button => {
-            button.addEventListener("click", () => {
-                const btnId = button.id;
-                fetch(`http://localhost:5678/api/works/${btnId}` , {
-                    method: "DELETE",
-                    body: btnId,
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Remplace <ton_token_ici> par ton vrai token
-                        'Accept': '*/*',
-                    }
-                })
-                .then((reponse) =>{
-                    if(reponse.ok){
-                        const deltedProject = document.getElementById(btnId);
-                        if (deltedProject) {
-                            galleryListe.removeChild(deltedProject);
-                            genererProjet()
-                        }
-                    }
-                })
-            })
-        })
-        // Fin gestion supression des projet
+        removeProject()
+    })
+    .catch(() =>{
+        console.log('Erreur lors de la récupération des projets')
     })
 }
 
+// Function permettant la suppression des projets
+function removeProject(){
+    // Sélection du conteneur des projets
+    const galleryListe = document.querySelector(".project-contener")  
+    // Sélection de tous les boutons de suppression  
+    const deletBtn = document.querySelectorAll(".delet-btn")
+    deletBtn.forEach(button => {
+        button.addEventListener("click", () => {
+            // Récupération de l'identifiant du bouton de suppression et du projet à supprimer
+            const btnId = button.id;
+            // Envoie d'une requête à l'API pour supprimer le projet
+            fetch(`http://localhost:5678/api/works/${btnId}` , {
+                method: "DELETE",
+                body: btnId,
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Remplace <ton_token_ici> par ton vrai token
+                    'Accept': '*/*',
+                }
+            })
+            .then((reponse) =>{
+                if(reponse.ok){
+                    const deletedProject = document.getElementById(btnId);
+                    if (deletedProject) {
+                        galleryListe.removeChild(deletedProject);
+                        genererProjet()
+                    }
+                }
+            })
+            .catch(() =>{
+                console.log('Une erreur est survenue')
+            })
+        })
+    })
+}
+
+
+// Function qui génére dynamiquement le choix des catégorie des projets dans le formulaire
 function choiceCategories (){
     const formSelect = document.getElementById("choice-category")
-
     const optionCateggory = document.createElement("option")
     optionCateggory.value = ""
     formSelect.appendChild(optionCateggory)
@@ -176,14 +188,18 @@ function choiceCategories (){
     })
 }
 
+// Function permettant d'ajouter une photo dans le formulaire
 function addImage(){
     const errorPhoto = document.getElementById("error-photo")
-    const addPhoto = document.querySelector(".plusAddPhoto")
+    
     const onladPhoto = document.querySelector(".add-photo-here")
     onladPhoto.classList.add("active")
+
+    const viewPhoto = document.querySelector(".viewPhoto")
     const inputFile = document.getElementById('fileInput')
     const preview = document.getElementById('preview')
-    const viewPhoto = document.querySelector(".viewPhoto")
+     
+    const addPhoto = document.querySelector(".plusAddPhoto")
     addPhoto.addEventListener("click", () => {
         inputFile.click();
     })
@@ -195,6 +211,7 @@ function addImage(){
             UrlImg.onload  = function (e) {
                 preview.src = e.target.result;
                 viewPhoto.classList.add("active")
+                // Réinitialisation indépendante du message d'erreur lors de l'ajout de l'image//
                 errorPhoto.innerText = ""
             }
         onladPhoto.classList.remove("active");
@@ -204,14 +221,14 @@ function addImage(){
     })
 }
 
-
+// Fonction permettant de créer et d'envoyer un nouveau projet
 function addNewProject (){
     const sendNewProject = document.querySelector(".validation-btn") 
-
-    const operationStatus = document.getElementById("operation-status")
+    // Sélection des conteneurs de message d'erreur
     const errorPhoto = document.getElementById("error-photo")
     const errorTitle = document.getElementById("error-title")
     const errorCategory = document.getElementById("error-category")
+    const operationStatus = document.getElementById("operation-status")
     
     sendNewProject.addEventListener("click", () => {
         const imgSrc = document.getElementById('fileInput')
@@ -233,13 +250,16 @@ function addNewProject (){
         .then((reponse) => {
             if(reponse.ok){
                 operationStatus.innerText = "Le projet à bien été ajouté"
+                // Réintialisation des messages d'erreurs
                 errorPhoto.innerText = ""
                 errorTitle.innerText = ""
                 errorCategory.innerText = ""
+                // Affichage du nouveau projet
                 genererProjet()
                 afficherListeProjet()
                 
             } else {
+                // Affichage des messages d'erreurs
                 if (imgSrc.files.length === 0){
                     errorPhoto.innerText = "Veuillez choisir une photo"
                 } else {
@@ -266,6 +286,35 @@ function addNewProject (){
 }
 
 
+// Réinitialisation des messages d'erreurs du formulaire d'envoie d'un nouveau projet
+function resetErrorMessages(){
+    // Sélection des conteneurs de message d'erreur
+    const errorPhoto = document.getElementById("error-photo")
+    const errorTitle = document.getElementById("error-title")
+    const errorCategory = document.getElementById("error-category")
+    const operationStatus = document.getElementById("operation-status")
+    // Suppression des messages d'erreurs 
+    errorPhoto.innerText = ''
+    operationStatus.innerText = ""
+    errorTitle.innerText = ''
+    errorCategory.innerText = ''
+}
+
+// Gestion et réinitialisation  de l'apparence du conteneur permetant d'ajouter une image 
+function modaleManagement(){
+    // Ciblage des conteneur gérant l'affichage de l'image importée
+    const onladPhoto = document.querySelector(".add-photo-here")
+    const viewPhoto = document.querySelector(".viewPhoto")
+    // Ciblage des éléments du conteneur viewPhoto
+    const inputFile = document.getElementById('fileInput')
+    const preview = document.getElementById('preview')
+    // Gestion de l'apparence du conteneur affichant l'image importée
+    onladPhoto.classList.add("active")
+    viewPhoto.classList.remove("active")
+    // Réinitialisation de l'image
+    preview.src = ''
+    inputFile.value = ''
+}
 
 
 initAddEventListenerModale()
