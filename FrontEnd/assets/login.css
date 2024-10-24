@@ -37,13 +37,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 37px;
 }
 
 .e-mail,
 .mdp {
     display: flex;
     flex-direction: column;
+}
+
+.e-mail{
+    margin-bottom: 37px;
+}
+
+.mdp{
+    margin-bottom: 12px;
 }
 
 .login-acces form input[type="text"],
@@ -78,5 +85,8 @@ body {
 }
 
 #error-message {
+    height: 13px;
+    font-size: 13px;
     color: red;
+    margin-bottom: 12px;
 }

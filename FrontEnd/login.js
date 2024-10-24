@@ -4,6 +4,7 @@ const submit = document.getElementById("Se-connecter");
 submit.addEventListener("click", (event) => {
     // On empêche le rechargement par défault de la page 
     try{
+        document.getElementById("error-message").innerText = ""
         event.preventDefault();
 
         // Récupération de la valeur saisie pour l'email
