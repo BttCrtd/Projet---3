@@ -93,28 +93,31 @@
 		<h3>Ajout photo</h3>
 		<div class="project-gallery">
 			<div class="add-photo-section">
-				<div class="add-photo-here" style="display: flex;">
+				<div class="add-photo-here">
 					<div class="icon-contener">
 						<i class="fa-regular fa-image"></i>
 					</div>
 					<button class="plusAddPhoto">+ Ajouter photo</button>
 					<p>jpg, png : 4mo max</p>
 				</div>
+				<p class="error-message" id="error-photo"></p>
 				<div class="viewPhoto">
 					<input type="file" id="fileInput">
-					<img id="preview" src="" alt="Prévisualisation de l'image" style="max-width: 200px; display: none;">
+					<img id="preview" src="" alt="Prévisualisation de l'image">
 				</div>
-			</div>
+			</div>			
 			<form>
 				<div class="element-form-contener">
 					<label for="title">Titre</label>
 					<input type="text" name="title" id="title">
 				</div>
+				<p class="error-message" id="error-title"></p>
 				<div class="element-form-contener">
 					<label for="">Catégorie</label>
 					<select name="category" id="choice-category">
 					</select>
 				</div>
+				<p class="error-message" id="error-category"></p>
 			</form>
 		</div>
 		<button class="btn-popup validation-btn">Valider</button>

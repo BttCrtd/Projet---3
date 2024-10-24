@@ -6,6 +6,10 @@ function afficherModale(){
 }
 
 function cachermodale(){
+    const errorCategory = document.getElementById("error-category")
+    const errorTitle = document.getElementById("error-title")
+    const errorPhoto = document.getElementById("error-photo")
+    const viewPhoto = document.querySelector(".viewPhoto")
     const onladPhoto = document.querySelector(".add-photo-here")
     const inputFile = document.getElementById('fileInput')
     const preview = document.getElementById('preview')
@@ -16,10 +20,13 @@ function cachermodale(){
     if(popupModale.classList !== 'popup-active'){
         popupModale.classList.add("popup-active")
         popudAddProject.classList.remove('popup-active')
-        onladPhoto.style.display = 'flex'
+        onladPhoto.classList.add("active")
         inputFile.value = ''
         preview.src =''
-        preview.style.display = 'none'
+        viewPhoto.classList.remove("active")
+        errorPhoto.innerText = ""
+        errorTitle.innerText = ""
+        errorCategory.innerText = ""
     }
 }
 
@@ -149,8 +156,10 @@ function choiceCategories (){
 function addImage(){
     const addPhoto = document.querySelector(".plusAddPhoto")
     const onladPhoto = document.querySelector(".add-photo-here")
+    onladPhoto.classList.add("active")
     const inputFile = document.getElementById('fileInput')
     const preview = document.getElementById('preview')
+    const viewPhoto = document.querySelector(".viewPhoto")
     addPhoto.addEventListener("click", () => {
         inputFile.click();
     })
@@ -161,9 +170,9 @@ function addImage(){
             const UrlImg = new FileReader();
             UrlImg.onload  = function (e) {
                 preview.src = e.target.result;
-                preview.style.display = 'flex';
+                viewPhoto.classList.add("active")
             }
-        onladPhoto.style.display ='none'
+        onladPhoto.classList.remove("active");
         UrlImg.readAsDataURL(fichier)
         }
         
@@ -172,17 +181,20 @@ function addImage(){
 
 
 function addNewProject (){
-    const sendNewProject = document.querySelector(".validation-btn")
+    const sendNewProject = document.querySelector(".validation-btn") 
 
+    const errorPhoto = document.getElementById("error-photo")
+    const errorTitle = document.getElementById("error-title")
+    const errorCategory = document.getElementById("error-category")
     
     sendNewProject.addEventListener("click", () => {
         const imgSrc = document.getElementById('fileInput')
-        const titileProjet = document.getElementById("title")
+        const titleProject = document.getElementById("title")
         const catégorieProjet = document.getElementById("choice-category")
         const formData = new FormData()
 
         formData.append('image', imgSrc.files[0]); // Ajouter le fichier image
-        formData.append('title', titileProjet.value); // Ajouter le titre
+        formData.append('title', titleProject.value); // Ajouter le titre
         formData.append('category', parseInt(catégorieProjet.value));
         fetch("http://localhost:5678/api/works", {
             method: "POST",
@@ -193,10 +205,29 @@ function addNewProject (){
             }
         })
         .then((reponse) => {
-            console.log(reponse)
-            console.log(imgSrc.files[0])
-            console.log(titileProjet.value)
-            console.log(catégorieProjet.value)
+            if(reponse.ok){
+                console.log(imgSrc.files[0])
+                console.log(titleProject.value)
+                console.log(catégorieProjet.value)
+                console.log(reponse)
+            } else {
+                if (imgSrc.files.length === 0){
+                    errorPhoto.innerText = "Veuillez choisir une photo"
+                } else {
+                    errorPhoto.innerText = ""
+                }
+                if(titleProject.value === ''){
+                    errorTitle.innerText = "Veuillez attribuer un titre au projet"
+                } else {
+                    errorTitle.innerText = ""
+                }
+                if(catégorieProjet.value === ""){
+                    errorCategory.innerText = "Veuillez sélectionner une catégorie"
+                } else {
+                    errorCategory.innerText = ""
+                }
+            }
+            
         })
     })
 }
