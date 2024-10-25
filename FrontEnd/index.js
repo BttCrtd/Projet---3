@@ -23,33 +23,40 @@ export function FicheProjet (nomProjet, Listeprojets) {
 }
 
 ///////////////////////////////////// Fonction qui génére les fiches projets /////////////////////////////////////
-export function genererProjet(identifiantProjet) {
+export async function genererProjet(identifiantProjet) {
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionProjet = document.querySelector(".gallery");
     // Réinitialisation de la section 
     sectionProjet.innerHTML = "";
     // Récupération des projets depuis l'API
-    fetch("http://localhost:5678/api/works")
-    .then((response) => {
-        return response.json();
-    }).then((Listeprojets) => {
-        console.log(Listeprojets);
-        // Création de toutes les fiches projets //
-        if(identifiantProjet === undefined){
-            for(const projet of Listeprojets){
-                const mesProjets = FicheProjet(projet.title, Listeprojets)
-                sectionProjet.appendChild(mesProjets);
+        await fetch("http://localhost:5678/api/works")
+        .then((response) => {
+            return response.json();
+        }).then((Listeprojets) => {
+            console.log(Listeprojets);
+            // Création de toutes les fiches projets //
+            if(identifiantProjet === undefined){
+                for(const projet of Listeprojets){
+                    const mesProjets = FicheProjet(projet.title, Listeprojets)
+                    sectionProjet.appendChild(mesProjets);
+                }
+            } else {
+            // Création des fiches projets en fonction de leur catégorie //
+                for(const projet of Listeprojets){
+                    if(identifiantProjet === projet.categoryId ){
+                        const mesprojets = FicheProjet(projet.title, Listeprojets)
+                        sectionProjet.appendChild(mesprojets);
+                    }	
+                }
             }
-        } else {
-        // Création des fiches projets en fonction de leur catégorie //
-            for(const projet of Listeprojets){
-                if(identifiantProjet === projet.categoryId ){
-                    const mesprojets = FicheProjet(projet.title, Listeprojets)
-                    sectionProjet.appendChild(mesprojets);
-                }	
-            }
-        }
-    })
+        })
+        .catch(() => {
+            console.log("Une erreur est survenue lors du chargement des travaux")
+            const errorMessage = document.createElement("p")
+            errorMessage.classList.add("error-generer-projet")
+            errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux"
+            document.querySelector('.gallery-contener').appendChild(errorMessage)
+        })    
 }
 
 ///////////////////////////////////// Fonction qui génére les boutons /////////////////////////////////////
@@ -57,7 +64,7 @@ function genererFiltres(){
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionPortfolio = document.querySelector("#portfolio")
     // Récupération de l'élément du DOM avant lequel il faudra insérer les filtres
-    const div = document.querySelector(".gallery")
+    const div = document.querySelector(".gallery-contener")
 
     // Creation du conteneur des filtres
     const filtreContener = document.createElement("div")
@@ -95,9 +102,19 @@ function genererFiltres(){
             filtreContener.appendChild(btnFiltre);
         }
     })
+    .catch(() => {
+        console.log("Une erreur est survenue lors du chargement des filtres")
+        //const errorMessage = document.createElement("p")
+        //errorMessage.classList.add("error-generer-projet")
+        //errorMessage.innerText = "Une erreur est survenue lors du chargement des filtres"
+        //document.querySelector('.filters-contener').appendChild(errorMessage)
+    })
     // Insertion des boutons filtre avant la div de class gallery
     sectionPortfolio.insertBefore(filtreContener, div);
 }
+    
+
+
 
 
 function SuisJeConnecter(){

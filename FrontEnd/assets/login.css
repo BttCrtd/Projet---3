@@ -18,6 +18,10 @@ body {
 	margin: 50px 0
 }
 
+#login a[href="login.html"]{
+    font-weight: bold;
+}
+
 #login main, 
 #login footer{
     margin: 0;
