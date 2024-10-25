@@ -1,3 +1,4 @@
+
 // Récupération du bouton "Se connecter"
 const submit = document.getElementById("Se-connecter");
 // Ecoute du bouton "Se connecter"
@@ -23,13 +24,7 @@ submit.addEventListener("click", (event) => {
             })
         // Traitement de la réponse de l'API
         .then((reponse) => {
-            if(reponse.ok){
-                document.getElementById("error-message").innerText = "";
-                return reponse.json();                
-            } else {
-                console.log("Erreur dans l’identifiant ou le mot de passe")
-                document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe"
-            }
+            return answerManagement(reponse)
         })
         // Gestion du token
         .then((data) => {
@@ -37,14 +32,30 @@ submit.addEventListener("click", (event) => {
                 // Stockage du token dans le localStorage 
                 localStorage.setItem('token', data.token); 
                 localStorage.setItem('authenticated', 'true');
+                window.location.href = "index.html";
             }
-            window.location.href = "index.html";
         })
         .catch(() => {
-            document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe";
+            document.getElementById("error-message").innerText = "Une erreur est survenue, veuillez réessayer ultérieurement.";
             localStorage.setItem('authenticated', 'false');
         });
     } catch {
-        console.log("Connection impossible")
+        console.log("Une erreur est survenue, veuillez réessayer ultérieurement.")
+        document.getElementById("error-message").innerText = "Une erreur est survenue, veuillez réessayer ultérieurement."
     }
 })
+
+
+function answerManagement(reponseApi){
+    if(reponseApi.status === 404 || reponseApi.status === 401){
+        document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe";
+        localStorage.setItem('authenticated', 'false'); 
+        return reponseApi.json();        
+    }
+    if(reponseApi.status === 200) {
+        return reponseApi.json();
+    }
+    if(reponseApi.status !== 404 && reponseApi.status !== 401 && reponseApi.status !== 200){
+        return null
+    }
+}
