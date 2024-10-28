@@ -98,39 +98,43 @@ export function afficherListeProjet(){
         console.log(Listeprojets)
         for(let projet of Listeprojets) {
             // Création d'un conteneur pour le projet
-            const imageProjetContener = document.createElement("div")
-            imageProjetContener.id = `${projet.id}`
+            const imageProjectContener = document.createElement("div")
+            imageProjectContener.id = `${projet.id}`
             // Creation de l'image du projet
-            const imageprojet = document.createElement("img")
-            imageprojet.src = projet.imageUrl;
-            imageprojet.alt = projet.title;
+            const imageProject = document.createElement("img")
+            imageProject.src = projet.imageUrl;
+            imageProject.alt = projet.title;
             // Creation du bouton pour supprimer l'image
             const binBtn = document.createElement("button")
             binBtn.id = `${projet.id}`
-            binBtn.classList.add("delet-btn")
+            binBtn.classList.add("delete-btn")
             const binIcon = document.createElement("i")
             binIcon.classList.add("fa-solid")
             binIcon.classList.add("fa-trash-can")
             binBtn.appendChild(binIcon)
             // Assemblage et ajout du projet dans la gallerie
-            imageProjetContener.appendChild(imageprojet)
-            imageProjetContener.appendChild(binBtn)
-            galleryListe.appendChild(imageProjetContener)
+            imageProjectContener.appendChild(imageProject)
+            imageProjectContener.appendChild(binBtn)
+            galleryListe.appendChild(imageProjectContener)
         }
         removeProject()
     })
     .catch(() =>{
-        console.log('Erreur lors de la récupération des projets')
+        console.log('Une erreur est survenue lors de la récupération des projets')
+        const errorMessage = document.createElement("p")
+        errorMessage.classList.add("error-view-project-list")
+        errorMessage.innerText = "Une erreur est survenue lors de la récupération des projets"
+        galleryListe.appendChild(errorMessage)
     })
 }
 
-// Function permettant la suppression des projets
+// Fonction permettant la suppression des projets
 function removeProject(){
     // Sélection du conteneur des projets
     const galleryListe = document.querySelector(".project-contener")  
     // Sélection de tous les boutons de suppression  
-    const deletBtn = document.querySelectorAll(".delet-btn")
-    deletBtn.forEach(button => {
+    const deleteBtn = document.querySelectorAll(".delete-btn")
+    deleteBtn.forEach(button => {
         button.addEventListener("click", () => {
             // Récupération de l'identifiant du bouton de suppression et du projet à supprimer
             const btnId = button.id;
@@ -153,7 +157,7 @@ function removeProject(){
                 }
             })
             .catch(() =>{
-                console.log('Une erreur est survenue')
+                console.log('Une erreur est survenue lors de la suppression du projet')
             })
         })
     })
