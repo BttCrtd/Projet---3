@@ -167,9 +167,9 @@ function removeProject(){
 // Function qui génére dynamiquement le choix des catégorie des projets dans le formulaire
 export function choiceCategories (){
     const formSelect = document.getElementById("choice-category")
-    const optionCateggory = document.createElement("option")
-    optionCateggory.value = ""
-    formSelect.appendChild(optionCateggory)
+    const defaultOption = document.createElement("option")
+    defaultOption.value = ""
+    formSelect.appendChild(defaultOption)
 
     fetch("http://localhost:5678/api/categories")
     .then((response) => {
@@ -188,32 +188,31 @@ export function choiceCategories (){
 export function addImage(){
     const errorPhoto = document.getElementById("error-photo")
     
-    const onladPhoto = document.querySelector(".add-photo-here")
-    onladPhoto.classList.add("active")
+    const uploadPhoto = document.querySelector(".add-photo-here")
+    uploadPhoto.classList.add("active")
 
     const viewPhoto = document.querySelector(".viewPhoto")
     const inputFile = document.getElementById('fileInput')
     const preview = document.getElementById('preview')
      
-    const addPhoto = document.querySelector(".plusAddPhoto")
-    addPhoto.addEventListener("click", () => {
+    const addPhotoButton = document.querySelector(".plusAddPhoto")
+    addPhotoButton.addEventListener("click", () => {
         inputFile.click();
     })
     inputFile.addEventListener('change', (event) =>{
-        const fichier = event.target.files[0];
+        const file = event.target.files[0];
 
-        if(fichier) {
-            const UrlImg = new FileReader();
-            UrlImg.onload  = function (e) {
+        if(file) {
+            const urlImg = new FileReader();
+            urlImg.onload  = function (e) {
                 preview.src = e.target.result;
                 viewPhoto.classList.add("active")
                 // Réinitialisation indépendante du message d'erreur lors de l'ajout de l'image//
                 errorPhoto.innerText = ""
             }
-        onladPhoto.classList.remove("active");
-        UrlImg.readAsDataURL(fichier)
+        uploadPhoto.classList.remove("active");
+        urlImg.readAsDataURL(file)
         }
-        
     })
 }
 
