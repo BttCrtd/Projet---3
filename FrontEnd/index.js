@@ -1,6 +1,6 @@
 import {initAddEventListenerModale, addPhoto, addNewProject, afficherGaleriePhoto, afficherListeProjet, addImage, choiceCategories} from "./modale.js"
 
-///////////////////////////////////// Fonction pour générer une fiche projet /////////////////////////////////////
+// Fonction pour créer une fiche projet 
 export function FicheProjet (idProject, Listeprojets) {
     for(const projet of Listeprojets){
         if (idProject === projet.id){
@@ -14,23 +14,24 @@ export function FicheProjet (idProject, Listeprojets) {
             imgProjet.src = urlImage;
             imgProjet.alt = altImage;
             // Création de la balise pour le nom du projet
-            const idProject = document.createElement("figcaption");
-            idProject.innerText = projet.title;
+            const titleProject = document.createElement("figcaption");
+            titleProject.innerText = projet.title;
             // Rattachement des balises à leur élément parent	
             figureProjet.appendChild(imgProjet);
-            figureProjet.appendChild(idProject);
+            figureProjet.appendChild(titleProject);
             return (figureProjet)
         }
     } 
 }
 
-///////////////////////////////////// Fonction qui génére les fiches projets /////////////////////////////////////
+// Fonction qui génére l'affichage des fiches projets 
 export async function genererProjet(identifiantProjet) {
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionProjet = document.querySelector(".gallery");
     // Réinitialisation de la section 
     sectionProjet.innerHTML = "";
     // Récupération des projets depuis l'API
+    try {
         await fetch("http://localhost:5678/api/works")
         .then((response) => {
             return response.json();
@@ -51,17 +52,18 @@ export async function genererProjet(identifiantProjet) {
                     }	
                 }
             }
-        })
-        .catch(() => {
-            console.log("Une erreur est survenue lors du chargement des travaux")
-            const errorMessage = document.createElement("p")
-            errorMessage.classList.add("error-generer-projet")
-            errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux"
-            document.querySelector('.gallery-contener').appendChild(errorMessage)
-        })    
+        })   
+    } catch {
+        // Gestion des erreurs
+        console.log("Une erreur est survenue lors du chargement des travaux")
+        const errorMessage = document.createElement("p")
+        errorMessage.classList.add("error-generer-projet")
+        errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux"
+        document.querySelector('.gallery-contener').appendChild(errorMessage)
+    }
 }
 
-///////////////////////////////////// Fonction qui génére les boutons /////////////////////////////////////
+// Fonction qui génère les filtres 
 function genererFiltres(){
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionPortfolio = document.querySelector("#portfolio")
@@ -72,56 +74,55 @@ function genererFiltres(){
     const filtreContener = document.createElement("div")
     filtreContener.classList.add("filters-contener")
 
-    // Création des boutons filtres
-    const btnFiltre = document.createElement("button")
-    // Création du bouton filtres qui affiche tous les projets
-    btnFiltre.innerText = "Tous"
-    btnFiltre.classList.add("btn-tous")
-    
-    btnFiltre.addEventListener("click", () => {
-        genererProjet()
-    })
-
-    // Insertion du filtre à son élément parent
-    filtreContener.appendChild(btnFiltre)
-
     // Récupération des catégories depuis l'API
+    
     fetch("http://localhost:5678/api/categories")
     .then((response) => {
         return response.json();
     }).then((filtres) => {
         console.log(filtres);
+        //////////////// Création des boutons filtres /////////////////
+        // Création du bouton filtres qui affiche tous les projets
+        const btnAll = document.createElement("button")
+        btnAll.innerText = "Tous"
+        btnAll.classList.add("btn-tous")
+        
+        btnAll.addEventListener("click", () => {
+            genererProjet()
+        })
+        filtreContener.appendChild(btnAll)
+        // Création des autres boutons
         for (const filtre of filtres){
-            // Création des boutons filtres
             const btnFiltre = document.createElement("button");
             btnFiltre.innerText = filtre.name;
             btnFiltre.classList.add("other-btn")
             
             btnFiltre.addEventListener("click", () => {
                 genererProjet(filtre.id)
-            })
-            // Rattachement des boutons à leur élément parent	
+            })	
             filtreContener.appendChild(btnFiltre);
         }
+        // Insertion des boutons filtre avant la div de class gallery
+        sectionPortfolio.insertBefore(filtreContener, div);
     })
-    .catch(() => {
+    .catch (() => {
         console.log("Une erreur est survenue lors du chargement des filtres")
-        //const errorMessage = document.createElement("p")
-        //errorMessage.classList.add("error-generer-projet")
-        //errorMessage.innerText = "Une erreur est survenue lors du chargement des filtres"
-        //document.querySelector('.filters-contener').appendChild(errorMessage)
+        const errorMessage = document.createElement("p")
+        errorMessage.classList.add("error-generer-projet")
+        errorMessage.innerText = "Une erreur est survenue lors du chargement des filtres"
+        filtreContener.appendChild(errorMessage)
+        sectionPortfolio.insertBefore(filtreContener, div);
     })
-    // Insertion des boutons filtre avant la div de class gallery
-    sectionPortfolio.insertBefore(filtreContener, div);
 }
     
 
 
 
-
+// Fonction qui gére l'affichage suisvant le status de l'utilisateur
 function SuisJeConnecter(){
     if (localStorage.getItem('authenticated') === 'true'){
         console.log('Je suis bien connecter')        
+        genererProjet()
         administatorTools()
         initAddEventListenerModale()
         addPhoto()
@@ -130,7 +131,6 @@ function SuisJeConnecter(){
         afficherListeProjet()
         addImage()
         choiceCategories()
-        genererProjet()
     } else {
         console.log('Je suis pas connecter')
         genererFiltres()
@@ -139,7 +139,8 @@ function SuisJeConnecter(){
 }
 SuisJeConnecter()
 
-function administatorTools (){
+// Fonction qui génère l'affichage du mode edition et le bouton d'edition
+function administatorTools(){
     // bande mode édition
     const body = document.querySelector("body")
     const afterElement = document.querySelector("header")
