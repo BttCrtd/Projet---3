@@ -1,7 +1,7 @@
 ///////////////////////////////////// Fonction pour générer une fiche projet /////////////////////////////////////
-export function FicheProjet (nomProjet, Listeprojets) {
+export function FicheProjet (idProject, Listeprojets) {
     for(const projet of Listeprojets){
-        if (nomProjet === projet.title){
+        if (idProject === projet.id){
             // Création d'une balise dédiée à un projet
             const figureProjet = document.createElement("figure");
             // Création de la balide image 
@@ -12,11 +12,11 @@ export function FicheProjet (nomProjet, Listeprojets) {
             imgProjet.src = urlImage;
             imgProjet.alt = altImage;
             // Création de la balise pour le nom du projet
-            const nomProjet = document.createElement("figcaption");
-            nomProjet.innerText = projet.title;
+            const idProject = document.createElement("figcaption");
+            idProject.innerText = projet.title;
             // Rattachement des balises à leur élément parent	
             figureProjet.appendChild(imgProjet);
-            figureProjet.appendChild(nomProjet);
+            figureProjet.appendChild(idProject);
             return (figureProjet)
         }
     } 
@@ -37,14 +37,14 @@ export async function genererProjet(identifiantProjet) {
             // Création de toutes les fiches projets //
             if(identifiantProjet === undefined){
                 for(const projet of Listeprojets){
-                    const mesProjets = FicheProjet(projet.title, Listeprojets)
+                    const mesProjets = FicheProjet(projet.id, Listeprojets)
                     sectionProjet.appendChild(mesProjets);
                 }
             } else {
             // Création des fiches projets en fonction de leur catégorie //
                 for(const projet of Listeprojets){
                     if(identifiantProjet === projet.categoryId ){
-                        const mesprojets = FicheProjet(projet.title, Listeprojets)
+                        const mesprojets = FicheProjet(projet.id, Listeprojets)
                         sectionProjet.appendChild(mesprojets);
                     }	
                 }
