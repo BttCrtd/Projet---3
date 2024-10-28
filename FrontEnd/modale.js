@@ -1,6 +1,6 @@
 import {FicheProjet, genererProjet} from "./index.js"
 
-// Fonction permettant d'ouvrir de la modale
+// Fonction permettant d'ouvrir la modale
 function modalDisplay(){
     const modalePopup = document.querySelector('.modale')
     modalePopup.classList.add("active")
@@ -14,7 +14,7 @@ function modalHide(){
     // Réinitialisation de l'affichage de la popup
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
-    if(popupModale.classList !== 'popup-active'){
+    if(!popupModale.classList.contains('popup-active')){
         popupModale.classList.add("popup-active")
         popudAddProject.classList.remove('popup-active')
         // Réinitialisation des messages d'erreurs 
@@ -32,9 +32,8 @@ export function initAddEventListenerModale(){
     const popupModale = document.querySelector(".popup")
     // Ciblage des différents éléments servant à fermer la modale
     const modalePopup = document.querySelector(".modale")
-    const closeButton = document.querySelector(".fa-x")
-    const closeButton2 = document.querySelector(".popup-add-project .fa-x")
-    // Gestion de l'affichage de la modale
+    const closeButton = document.querySelectorAll(".fa-x, .popup-add-project .fa-x")
+    // Gestion d'ouverture de la modale
     buttonEdit.addEventListener("click", () => {
         modalDisplay()
         // Affichage de la popup 'Galerie Photo'
@@ -46,39 +45,32 @@ export function initAddEventListenerModale(){
             modalHide()
         }
     })
-    closeButton.addEventListener("click", (event) => {
-        if(event.target === closeButton){
-            modalHide()
-        }
-    }) 
-    closeButton2.addEventListener("click", (event) => {
-        if(event.target === closeButton2){
-            modalHide()
-        }
-    }) 
+    closeButton.forEach(button => {
+        button.addEventListener("click", modalHide)
+    })
 }
 
 // Function permettant de naviguer de Galerie Photo à Ajouter photo
 export function addPhoto(){
     const popupModale = document.querySelector(".popup")
-    const popudAddProject = document.querySelector('.popup-add-project')
+    const popupAddProject = document.querySelector('.popup-add-project')
 
     // Ciblage des éléments du formulaire
     const titleProject = document.getElementById("title")
-    const catégorieProjet = document.getElementById("choice-category")
+    const categoryProject = document.getElementById("choice-category")
     
-    const BtnAddPhoto = document.querySelector(".add-photo")
-    BtnAddPhoto.addEventListener("click", () => {
+    const btnAddPhoto = document.querySelector(".add-photo")
+    btnAddPhoto.addEventListener("click", () => {
         // Réinitialisation des messages d'erreurs 
         resetErrorMessages()
         // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
         modaleManagement()
         // Gestion de l'affichage des popups"
         popupModale.classList.remove('popup-active')
-        popudAddProject.classList.add('popup-active')
+        popupAddProject.classList.add('popup-active')
         // Réinitialisation des valeurs du formulaire
         titleProject.value = ''
-        catégorieProjet.value = ''
+        categoryProject.value = ''
     })
 }
 
