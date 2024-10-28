@@ -119,7 +119,7 @@ function genererFiltres(){
 
 
 // Fonction qui gére l'affichage suisvant le status de l'utilisateur
-function SuisJeConnecter(){
+function checkConnection(){
     if (localStorage.getItem('authenticated') === 'true'){
         console.log('Je suis bien connecter')        
         genererProjet()
@@ -137,13 +137,15 @@ function SuisJeConnecter(){
         genererProjet()
     }
 }
-SuisJeConnecter()
+checkConnection()
 
 // Fonction qui génère l'affichage du mode edition et le bouton d'edition
 function administatorTools(){
-    // bande mode édition
+    ///////////// Création du bandeau 'mode édition' /////////////
+    // Sélection des élèment pour placer le bandeau 'mode edition'
     const body = document.querySelector("body")
     const afterElement = document.querySelector("header")
+    // Création du bandeau 'mode edition'
     const editingMode = document.createElement("div")
     editingMode.classList.add("editing-section")
     const info = document.createElement("p")
@@ -153,32 +155,32 @@ function administatorTools(){
     info.innerText = "Mode édition"
     editingMode.appendChild(iconInfo);
     editingMode.appendChild(info)
+    // Insertion du bandeau 'mode edition'
     body.insertBefore(editingMode, afterElement)
-
-    // bouton modifier
-
+    ///////////// Création du bouton 'modifier' /////////////
+    // Sélection des élèment pour placer le bouton 'modifier'
     const porfolioEmplacement = document.getElementById("portfolio")
     const titleH2 = document.querySelector("#portfolio h2")
-
+    // Création d'une division contenant le titre et le bouton 'modifier' pour les afficher en ligne
+    // Création de la nouvelle division
     const nvldiv = document.createElement("div")
     nvldiv.classList.add("edit-new-project")
+    // Création du titre dans la div
     const h2 = document.createElement("h2")
     h2.innerText = "Mes projets"
-
     nvldiv.appendChild(h2)
-
+    // création du bouton 'modifier'
     const editButton = document.createElement("button")
     const iconEditBtn = document.createElement("i")
     iconEditBtn.classList.add("fa-regular")
     iconEditBtn.classList.add("fa-pen-to-square")
-
     editButton.classList.add("edit-btn")
     editButton.innerText ="modifier"
     editButton.appendChild(iconEditBtn)
-
     nvldiv.appendChild(editButton)
-
+    // Insertion du titre et du bouton 'modifier'
     porfolioEmplacement.insertBefore(nvldiv, titleH2)
+    // Suppression de l'ancien titre
     porfolioEmplacement.removeChild(titleH2)  
 }
 
