@@ -1,18 +1,17 @@
-
 // Récupération du bouton "Se connecter"
 const submit = document.getElementById("Se-connecter");
 // Ecoute du bouton "Se connecter"
 submit.addEventListener("click", (event) => {
     // On empêche le rechargement par défault de la page 
     try{
+        // Réinitialisation du message d'erreur
         document.getElementById("error-message").innerText = ""
         event.preventDefault();
-
         // Récupération de la valeur saisie pour l'email
         const email = document.getElementById("E-mail").value;
         // Récupération de la valeur saisie pour le mot de passe
         const motDePasse = document.getElementById("mot-de-passe").value;
-    
+        // Stockage des valeurs à envoyer à l'API
         const dataLogin = {
             "email" : email, 
             "password": motDePasse}
@@ -45,7 +44,7 @@ submit.addEventListener("click", (event) => {
     }
 })
 
-
+// Fonction permettant de cibler le type d'erreur
 function answerManagement(reponseApi){
     if(reponseApi.status === 404 || reponseApi.status === 401){
         document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe";
