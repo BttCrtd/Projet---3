@@ -219,21 +219,18 @@ export function addImage(){
 // Fonction permettant de créer et d'envoyer un nouveau projet
 export function addNewProject (){
     const sendNewProject = document.querySelector(".validation-btn") 
-    // Sélection des conteneurs de message d'erreur
-    const errorPhoto = document.getElementById("error-photo")
-    const errorTitle = document.getElementById("error-title")
-    const errorCategory = document.getElementById("error-category")
+    // Sélection du conteneur du message du status de la requête
     const operationStatus = document.getElementById("operation-status")
     
     sendNewProject.addEventListener("click", () => {
         const imgSrc = document.getElementById('fileInput')
         const titleProject = document.getElementById("title")
-        const catégorieProjet = document.getElementById("choice-category")
+        const categoryProject = document.getElementById("choice-category")
         const formData = new FormData()
 
         formData.append('image', imgSrc.files[0]); // Ajouter le fichier image
         formData.append('title', titleProject.value); // Ajouter le titre
-        formData.append('category', parseInt(catégorieProjet.value));
+        formData.append('category', parseInt(categoryProject.value));
         fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
@@ -246,30 +243,14 @@ export function addNewProject (){
             if(reponse.ok){
                 operationStatus.innerText = "Le projet à bien été ajouté"
                 // Réintialisation des messages d'erreurs
-                errorPhoto.innerText = ""
-                errorTitle.innerText = ""
-                errorCategory.innerText = ""
+                resetErrorMessagesAddNewProject()
                 // Affichage du nouveau projet
                 genererProjet()
                 afficherListeProjet()
                 
             } else {
                 // Affichage des messages d'erreurs
-                if (imgSrc.files.length === 0){
-                    errorPhoto.innerText = "Veuillez choisir une photo"
-                } else {
-                    errorPhoto.innerText = ""
-                }
-                if(titleProject.value === ''){
-                    errorTitle.innerText = "Veuillez attribuer un titre au projet"
-                } else {
-                    errorTitle.innerText = ""
-                }
-                if(catégorieProjet.value === ""){
-                    errorCategory.innerText = "Veuillez sélectionner une catégorie"
-                } else {
-                    errorCategory.innerText = ""
-                }
+                displayErrorMessagesAddNewProject(imgSrc, titleProject, categoryProject)
             }
             
         })
@@ -280,6 +261,35 @@ export function addNewProject (){
     })
 }
 
+function displayErrorMessagesAddNewProject(imgSrc, titleProject, categoryProject){
+    const errorPhoto = document.getElementById("error-photo")
+    const errorTitle = document.getElementById("error-title")
+    const errorCategory = document.getElementById("error-category")
+    if (imgSrc.files.length === 0){
+        errorPhoto.innerText = "Veuillez choisir une photo"
+    } else {
+        errorPhoto.innerText = ""
+    }
+    if(titleProject.value === ''){
+        errorTitle.innerText = "Veuillez attribuer un titre au projet"
+    } else {
+        errorTitle.innerText = ""
+    }
+    if(categoryProject.value === ""){
+        errorCategory.innerText = "Veuillez sélectionner une catégorie"
+    } else {
+        errorCategory.innerText = ""
+    }
+}
+
+function resetErrorMessagesAddNewProject(){
+    const errorPhoto = document.getElementById("error-photo")
+    const errorTitle = document.getElementById("error-title")
+    const errorCategory = document.getElementById("error-category")
+    errorPhoto.innerText = ""
+    errorTitle.innerText = ""
+    errorCategory.innerText = ""
+}
 
 // Réinitialisation des messages d'erreurs du formulaire d'envoie d'un nouveau projet
 function resetErrorMessages(){
@@ -310,9 +320,3 @@ function modaleManagement(){
     preview.src = ''
     inputFile.value = ''
 }
-
-
-
-
-
-
