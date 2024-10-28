@@ -1,3 +1,5 @@
+import {initAddEventListenerModale, addPhoto, addNewProject, afficherGaleriePhoto, afficherListeProjet, addImage, choiceCategories} from "./modale.js"
+
 ///////////////////////////////////// Fonction pour générer une fiche projet /////////////////////////////////////
 export function FicheProjet (idProject, Listeprojets) {
     for(const projet of Listeprojets){
@@ -119,12 +121,23 @@ function genererFiltres(){
 
 function SuisJeConnecter(){
     if (localStorage.getItem('authenticated') === 'true'){
-        console.log('Je suis bien connecter')
+        console.log('Je suis bien connecter')        
         administatorTools()
+        initAddEventListenerModale()
+        addPhoto()
+        addNewProject()
+        afficherGaleriePhoto()
+        afficherListeProjet()
+        addImage()
+        choiceCategories()
+        genererProjet()
     } else {
         console.log('Je suis pas connecter')
+        genererFiltres()
+        genererProjet()
     }
 }
+SuisJeConnecter()
 
 function administatorTools (){
     // bande mode édition
@@ -153,7 +166,6 @@ function administatorTools (){
 
     nvldiv.appendChild(h2)
 
-    const btnFiltre = document.querySelector(".filters-contener")
     const editButton = document.createElement("button")
     const iconEditBtn = document.createElement("i")
     iconEditBtn.classList.add("fa-regular")
@@ -166,11 +178,6 @@ function administatorTools (){
     nvldiv.appendChild(editButton)
 
     porfolioEmplacement.insertBefore(nvldiv, titleH2)
-    porfolioEmplacement.removeChild(titleH2)
-    porfolioEmplacement.removeChild(btnFiltre)
+    porfolioEmplacement.removeChild(titleH2)  
 }
 
-// Appel aux fonctions
-genererFiltres()
-genererProjet()
-SuisJeConnecter()

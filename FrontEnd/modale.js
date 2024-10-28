@@ -25,7 +25,7 @@ function modalHide(){
 }
 
 // Function gérant l'ouverture et la fermeture de la modale
-function initAddEventListenerModale(){
+export function initAddEventListenerModale(){
     // Ciblage du bouton permettant d'afficher la modale
     const buttonEdit = document.querySelector(".edit-btn")
     // Sélection de la popup à afficher
@@ -59,7 +59,7 @@ function initAddEventListenerModale(){
 }
 
 // Function permettant de naviguer de Galerie Photo à Ajouter photo
-function addPhoto(){
+export function addPhoto(){
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
 
@@ -83,7 +83,7 @@ function addPhoto(){
 }
 
 // Function permettant de naviguer de Ajouter Photo à Galerie Photo
-function afficherGaleriePhoto(){
+export function afficherGaleriePhoto(){
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
 
@@ -96,7 +96,7 @@ function afficherGaleriePhoto(){
 }
 
 // Function permettant de récupérer la liste des projet et de l'afficher dans Galerie Photo
-function afficherListeProjet(){
+export function afficherListeProjet(){
     const galleryListe = document.querySelector(".project-contener")
     galleryListe.innerHTML = ''
     fetch("http://localhost:5678/api/works")
@@ -169,7 +169,7 @@ function removeProject(){
 
 
 // Function qui génére dynamiquement le choix des catégorie des projets dans le formulaire
-function choiceCategories (){
+export function choiceCategories (){
     const formSelect = document.getElementById("choice-category")
     const optionCateggory = document.createElement("option")
     optionCateggory.value = ""
@@ -189,7 +189,7 @@ function choiceCategories (){
 }
 
 // Function permettant d'ajouter une photo dans le formulaire
-function addImage(){
+export function addImage(){
     const errorPhoto = document.getElementById("error-photo")
     
     const onladPhoto = document.querySelector(".add-photo-here")
@@ -222,7 +222,7 @@ function addImage(){
 }
 
 // Fonction permettant de créer et d'envoyer un nouveau projet
-function addNewProject (){
+export function addNewProject (){
     const sendNewProject = document.querySelector(".validation-btn") 
     // Sélection des conteneurs de message d'erreur
     const errorPhoto = document.getElementById("error-photo")
@@ -317,13 +317,7 @@ function modaleManagement(){
 }
 
 
-initAddEventListenerModale()
-addPhoto()
-addNewProject()
-afficherGaleriePhoto()
-afficherListeProjet()
-addImage()
-choiceCategories()
+
 
 
 
