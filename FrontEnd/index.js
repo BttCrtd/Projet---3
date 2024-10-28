@@ -1,4 +1,4 @@
-import {initAddEventListenerModale, addPhoto, addNewProject, afficherGaleriePhoto, afficherListeProjet, addImage, choiceCategories} from "./modale.js"
+import {initAddEventListenerModale, addPhoto, addNewProject, viewPhotoGallery, afficherListeProjet, addImage, choiceCategories} from "./modale.js"
 
 // Fonction pour créer une fiche projet 
 export function FicheProjet (idProject, Listeprojets) {
@@ -127,7 +127,7 @@ function checkConnection(){
         initAddEventListenerModale()
         addPhoto()
         addNewProject()
-        afficherGaleriePhoto()
+        viewPhotoGallery()
         afficherListeProjet()
         addImage()
         choiceCategories()

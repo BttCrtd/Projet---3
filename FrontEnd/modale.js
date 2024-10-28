@@ -75,15 +75,15 @@ export function addPhoto(){
 }
 
 // Function permettant de naviguer de Ajouter Photo à Galerie Photo
-export function afficherGaleriePhoto(){
+export function viewPhotoGallery(){
     const popupModale = document.querySelector(".popup")
-    const popudAddProject = document.querySelector('.popup-add-project')
+    const popupAddProject = document.querySelector('.popup-add-project')
 
     const backBtn = document.querySelector(".fa-arrow-left")
     backBtn.addEventListener("click", () => {
         // Gestion d'apparance de la modale Ajouter photo
         popupModale.classList.add('popup-active')
-        popudAddProject.classList.remove('popup-active')
+        popupAddProject.classList.remove('popup-active')
     })
 }
 
