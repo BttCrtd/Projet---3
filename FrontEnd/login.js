@@ -1,3 +1,4 @@
+// Fonction permettant de gérer le contenue du lien pour accéder à la page de connection
 export function loginLogout(){
     const loginLink = document.querySelector('nav a[href="login.html"]')
     loginLink.innerText = ''
