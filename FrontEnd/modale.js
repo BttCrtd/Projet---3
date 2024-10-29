@@ -14,6 +14,8 @@ function modalHide(){
     // Réinitialisation de l'affichage de la popup
     const popupModale = document.querySelector(".popup")
     const popudAddProject = document.querySelector('.popup-add-project')
+    const sendNewProject = document.querySelector(".validation-btn");
+    sendNewProject.disabled = true;
     if(!popupModale.classList.contains('popup-active')){
         popupModale.classList.add("popup-active")
         popudAddProject.classList.remove('popup-active') 
@@ -78,12 +80,14 @@ export function addPhoto(){
 export function viewPhotoGallery(){
     const popupModale = document.querySelector(".popup")
     const popupAddProject = document.querySelector('.popup-add-project')
+    const sendNewProject = document.querySelector(".validation-btn");
 
     const backBtn = document.querySelector(".back")
     backBtn.addEventListener("click", () => {
         // Gestion d'apparance de la modale Ajouter photo
         popupModale.classList.add('popup-active')
         popupAddProject.classList.remove('popup-active')
+        sendNewProject.disabled = true
     })
 }
 
@@ -220,80 +224,89 @@ export function addImage(){
 }
 
 // Fonction permettant de créer et d'envoyer un nouveau projet
-export function addNewProject (){
-    const sendNewProject = document.querySelector(".validation-btn") 
-    // Sélection du conteneur du message du status de la requête
-    const operationStatus = document.getElementById("operation-status-add-new-project")
-    
-    sendNewProject.addEventListener("click", () => {
-        const imgSrc = document.getElementById('fileInput')
-        const titleProject = document.getElementById("title")
-        const categoryProject = document.getElementById("choice-category")
-        const formData = new FormData()
+export function addNewProject() { 
+    // Selection des éléments du formulaire
+    const imgSrc = document.getElementById('fileInput');
+    const titleProject = document.getElementById("title");
+    const categoryProject = document.getElementById("choice-category");
+    const sendNewProject = document.querySelector(".validation-btn");
+    // Désactivation du bouton d'envoie par défaut
+    sendNewProject.disabled = true;
+    // Ecouteurs d'événements pour savoir si les éléments sont remplis
+    imgSrc.addEventListener('change', checkForm);
+    titleProject.addEventListener('input', checkForm);
+    categoryProject.addEventListener('change', checkForm);
+    // Envoi du formulaire 
+    sendNewProject.addEventListener("click", sandingForm);
+}
 
-        formData.append('image', imgSrc.files[0]); // Ajouter le fichier image
-        formData.append('title', titleProject.value); // Ajouter le titre
-        formData.append('category', parseInt(categoryProject.value));
+function sandingForm() {
+    const operationStatus = document.getElementById("operation-status-add-new-project");
+    // Vérification de la validité du formulaire
+    if (checkForm()) {
+        const imgSrc = document.getElementById('fileInput');
+        const titleProject = document.getElementById("title");
+        const categoryProject = document.getElementById("choice-category");
+        const formData = new FormData();
+
+        formData.append('image', imgSrc.files[0]); 
+        formData.append('title', titleProject.value); 
+        formData.append('category', parseInt(categoryProject.value)); 
+        
         fetch("http://localhost:5678/api/works", {
             method: "POST",
             body: formData,
             headers: {
                 'accept': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`, 
             }
         })
-        .then((reponse) => {
-            if(reponse.ok){
+        .then((response) => {
+            if (response.ok) {
                 // Réintialisation des messages d'erreurs
-                resetErrorMessages()
-                operationStatus.innerText = "Le projet à bien été ajouté"
+                resetErrorMessages();
+                operationStatus.innerText = "Le projet a bien été ajouté.";
                 // Affichage du nouveau projet
-                genererProjet()
-                afficherListeProjet()
-                
-            } else {
-                // Affichage des messages d'erreurs
-                displayErrorMessagesAddNewProject(imgSrc, titleProject, categoryProject)
-            }
-            
+                genererProjet();
+                afficherListeProjet();
+                // Désactation du bouton d'envoi
+                const sendNewProject = document.querySelector(".validation-btn");
+                sendNewProject.disabled = true; 
+            } 
         })
-        .catch((error) => {
-            console.log ("Erreur lors de l'ajout du projet :", error)
-            operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard."
-        })
-    })
+        .catch(() => {
+            console.log("Erreur lors de l'ajout du projet :");
+            operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard.";
+        });
+    } 
 }
 
-function displayErrorMessagesAddNewProject(imgSrc, titleProject, categoryProject){
-    const errorPhoto = document.getElementById("error-photo")
-    const errorTitle = document.getElementById("error-title")
-    const errorCategory = document.getElementById("error-category")
-    if (imgSrc.files.length === 0){
-        errorPhoto.innerText = "Veuillez choisir une photo"
-    } else {
-        errorPhoto.innerText = ""
+// Fonction de validation du formulaire et d'activation du bouton d'envoie
+function checkForm() {
+    let check = false
+    const sendNewProject = document.querySelector(".validation-btn");
+    const imgSrc = document.getElementById('fileInput');
+    const titleProject = document.getElementById("title");
+    const categoryProject = document.getElementById("choice-category");
+    
+    // Vérifier si tous les champs sont remplis
+    if(imgSrc.files.length > 0 && titleProject.value !== '' && categoryProject.value !== ""){
+        // Activation du bouton d'envoie
+        sendNewProject.disabled = false
+        check = true
     }
-    if(titleProject.value === ''){
-        errorTitle.innerText = "Veuillez attribuer un titre au projet"
-    } else {
-        errorTitle.innerText = ""
-    }
-    if(categoryProject.value === ""){
-        errorCategory.innerText = "Veuillez sélectionner une catégorie"
-    } else {
-        errorCategory.innerText = ""
-    }
+    return check
 }
 
 // Réinitialisation des messages d'erreurs et de validation du formulaire d'envoie d'un nouveau projet et de la suppression d'un d'un projet
 function resetErrorMessages(){
-    // Sélection des conteneurs de message d'erreur
+    // Sélection des conteneurs de message d'erreur et de validation 
     const errorPhoto = document.getElementById("error-photo")
     const errorTitle = document.getElementById("error-title")
     const errorCategory = document.getElementById("error-category")
     const operationStatusAddnewProject = document.getElementById("operation-status-add-new-project")
     const operationStatusRemoveProject = document.getElementById("operation-status-remove-project")
-    // Suppression des messages d'erreurs 
+    // Suppression des messages d'erreurs et de validation
     errorPhoto.innerText = ''
     operationStatusAddnewProject.innerText = ""
     errorTitle.innerText = ''
