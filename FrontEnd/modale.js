@@ -244,9 +244,9 @@ export function addNewProject (){
         })
         .then((reponse) => {
             if(reponse.ok){
-                operationStatus.innerText = "Le projet à bien été ajouté"
                 // Réintialisation des messages d'erreurs
                 resetErrorMessages()
+                operationStatus.innerText = "Le projet à bien été ajouté"
                 // Affichage du nouveau projet
                 genererProjet()
                 afficherListeProjet()

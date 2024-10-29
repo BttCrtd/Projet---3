@@ -143,7 +143,14 @@ checkConnection()
 
 // Fonction qui génère l'affichage du mode edition et le bouton d'edition
 function administatorTools(){
-    ///////////// Création du bandeau 'mode édition' /////////////
+    //Création du bandeau 'mode édition'
+    editionMode()
+    //Création du bouton 'modifier' 
+    editionButton()
+}
+
+// Fonction permettant de créer le bandeau 'mode edition'
+function editionMode(){
     // Sélection des élèment pour placer le bandeau 'mode edition'
     const body = document.querySelector("body")
     const afterElement = document.querySelector("header")
@@ -159,7 +166,10 @@ function administatorTools(){
     editingMode.appendChild(info)
     // Insertion du bandeau 'mode edition'
     body.insertBefore(editingMode, afterElement)
-    ///////////// Création du bouton 'modifier' /////////////
+}
+
+// Fonction permettant de créer le bouton 'modifier'
+function editionButton(){
     // Sélection des élèment pour placer le bouton 'modifier'
     const porfolioEmplacement = document.getElementById("portfolio")
     const titleH2 = document.querySelector("#portfolio h2")
@@ -183,6 +193,5 @@ function administatorTools(){
     // Insertion du titre et du bouton 'modifier'
     porfolioEmplacement.insertBefore(nvldiv, titleH2)
     // Suppression de l'ancien titre
-    porfolioEmplacement.removeChild(titleH2)  
+    porfolioEmplacement.removeChild(titleH2)
 }
-
