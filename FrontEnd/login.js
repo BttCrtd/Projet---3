@@ -28,15 +28,15 @@ submit.addEventListener("click", (event) => {
         // Gestion du token
         .then((data) => {
             if (data.token) {                
-                // Stockage du token dans le localStorage 
-                localStorage.setItem('token', data.token); 
-                localStorage.setItem('authenticated', 'true');
+                // Stockage du token dans le sessionStorage 
+                sessionStorage.setItem('token', data.token); 
+                sessionStorage.setItem('authenticated', 'true');
                 window.location.href = "index.html";
             }
         })
         .catch(() => {
             document.getElementById("error-message").innerText = "Une erreur est survenue, veuillez réessayer ultérieurement.";
-            localStorage.setItem('authenticated', 'false');
+            sessionStorage.setItem('authenticated', 'false');
         });
     } catch {
         console.log("Une erreur est survenue, veuillez réessayer ultérieurement.")
@@ -48,7 +48,7 @@ submit.addEventListener("click", (event) => {
 function answerManagement(reponseApi){
     if(reponseApi.status === 404 || reponseApi.status === 401){
         document.getElementById("error-message").innerText = "Erreur dans l’identifiant ou le mot de passe";
-        localStorage.setItem('authenticated', 'false'); 
+        sessionStorage.setItem('authenticated', 'false'); 
         return reponseApi.json();        
     }
     if(reponseApi.status === 200) {

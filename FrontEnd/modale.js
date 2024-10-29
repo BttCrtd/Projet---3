@@ -143,7 +143,7 @@ function removeProject(){
                 method: "DELETE",
                 body: btnId,
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Remplace <ton_token_ici> par ton vrai token
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // Remplace <ton_token_ici> par ton vrai token
                     'Accept': '*/*',
                 }
             })
@@ -236,7 +236,7 @@ export function addNewProject (){
             body: formData,
             headers: {
                 'accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
             }
         })
         .then((reponse) => {

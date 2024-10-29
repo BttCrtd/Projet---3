@@ -120,7 +120,7 @@ function genererFiltres(){
 
 // Fonction qui gére l'affichage suisvant le status de l'utilisateur
 function checkConnection(){
-    if (localStorage.getItem('authenticated') === 'true'){
+    if (sessionStorage.getItem('authenticated') === 'true'){
         console.log('Je suis bien connecter')        
         genererProjet()
         administatorTools()
