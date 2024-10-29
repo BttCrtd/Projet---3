@@ -16,12 +16,12 @@ function modalHide(){
     const popudAddProject = document.querySelector('.popup-add-project')
     if(!popupModale.classList.contains('popup-active')){
         popupModale.classList.add("popup-active")
-        popudAddProject.classList.remove('popup-active')
-        // Réinitialisation des messages d'erreurs 
-        resetErrorMessages()
+        popudAddProject.classList.remove('popup-active') 
         // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
         modaleManagement()
     }
+     // Réinitialisation des messages d'erreurs
+    resetErrorMessages()
 }
 
 // Function gérant l'ouverture et la fermeture de la modale
@@ -32,7 +32,7 @@ export function initAddEventListenerModale(){
     const popupModale = document.querySelector(".popup")
     // Ciblage des différents éléments servant à fermer la modale
     const modalePopup = document.querySelector(".modale")
-    const closeButton = document.querySelectorAll(".fa-x, .popup-add-project .fa-x")
+    const closeButton = document.querySelectorAll(".close")
     // Gestion d'ouverture de la modale
     buttonEdit.addEventListener("click", () => {
         modalDisplay()
@@ -79,7 +79,7 @@ export function viewPhotoGallery(){
     const popupModale = document.querySelector(".popup")
     const popupAddProject = document.querySelector('.popup-add-project')
 
-    const backBtn = document.querySelector(".fa-arrow-left")
+    const backBtn = document.querySelector(".back")
     backBtn.addEventListener("click", () => {
         // Gestion d'apparance de la modale Ajouter photo
         popupModale.classList.add('popup-active')
@@ -130,6 +130,7 @@ export function afficherListeProjet(){
 
 // Fonction permettant la suppression des projets
 function removeProject(){
+    const operationStatus = document.getElementById("operation-status-remove-project")
     // Sélection du conteneur des projets
     const galleryListe = document.querySelector(".project-contener")  
     // Sélection de tous les boutons de suppression  
@@ -151,6 +152,7 @@ function removeProject(){
                 if(reponse.ok){
                     const deletedProject = document.getElementById(btnId);
                     if (deletedProject) {
+                        operationStatus.innerText = "Le projet à bien été supprimé"
                         galleryListe.removeChild(deletedProject);
                         genererProjet()
                     }
@@ -158,6 +160,7 @@ function removeProject(){
             })
             .catch(() =>{
                 console.log('Une erreur est survenue lors de la suppression du projet')
+                operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard."
             })
         })
     })
@@ -220,7 +223,7 @@ export function addImage(){
 export function addNewProject (){
     const sendNewProject = document.querySelector(".validation-btn") 
     // Sélection du conteneur du message du status de la requête
-    const operationStatus = document.getElementById("operation-status")
+    const operationStatus = document.getElementById("operation-status-add-new-project")
     
     sendNewProject.addEventListener("click", () => {
         const imgSrc = document.getElementById('fileInput')
@@ -243,7 +246,7 @@ export function addNewProject (){
             if(reponse.ok){
                 operationStatus.innerText = "Le projet à bien été ajouté"
                 // Réintialisation des messages d'erreurs
-                resetErrorMessagesAddNewProject()
+                resetErrorMessages()
                 // Affichage du nouveau projet
                 genererProjet()
                 afficherListeProjet()
@@ -282,27 +285,20 @@ function displayErrorMessagesAddNewProject(imgSrc, titleProject, categoryProject
     }
 }
 
-function resetErrorMessagesAddNewProject(){
-    const errorPhoto = document.getElementById("error-photo")
-    const errorTitle = document.getElementById("error-title")
-    const errorCategory = document.getElementById("error-category")
-    errorPhoto.innerText = ""
-    errorTitle.innerText = ""
-    errorCategory.innerText = ""
-}
-
-// Réinitialisation des messages d'erreurs du formulaire d'envoie d'un nouveau projet
+// Réinitialisation des messages d'erreurs et de validation du formulaire d'envoie d'un nouveau projet et de la suppression d'un d'un projet
 function resetErrorMessages(){
     // Sélection des conteneurs de message d'erreur
     const errorPhoto = document.getElementById("error-photo")
     const errorTitle = document.getElementById("error-title")
     const errorCategory = document.getElementById("error-category")
-    const operationStatus = document.getElementById("operation-status")
+    const operationStatusAddnewProject = document.getElementById("operation-status-add-new-project")
+    const operationStatusRemoveProject = document.getElementById("operation-status-remove-project")
     // Suppression des messages d'erreurs 
     errorPhoto.innerText = ''
-    operationStatus.innerText = ""
+    operationStatusAddnewProject.innerText = ""
     errorTitle.innerText = ''
     errorCategory.innerText = ''
+    operationStatusRemoveProject.innerText = ''
 }
 
 // Gestion et réinitialisation  de l'apparence du conteneur permetant d'ajouter une image 
