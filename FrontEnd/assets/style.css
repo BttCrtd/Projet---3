@@ -551,6 +551,10 @@ a {
 	padding: 0;
 }
 
+.popup-add-project input{
+	margin-bottom: 21px;
+}
+
 
 .validation-btn[disabled] {
 	margin: 0px 0 19px 0;
@@ -570,15 +574,6 @@ a {
 	color: red;
 	font-size: 10px;
 	text-align: center;
-}
-
-#error-title{
-	width: 100%;
-	height: 19px;
-	margin-top: 2px;
-	color: red;
-	font-size: 10px;
-	text-align: left;
 }
 
 #error-category{

@@ -1,4 +1,4 @@
-import {FicheProjet, genererProjet} from "./index.js"
+import {genererProjet} from "./index.js"
 
 // Fonction permettant d'ouvrir la modale
 function modalDisplay(){
@@ -40,6 +40,7 @@ export function initAddEventListenerModale(){
         modalDisplay()
         // Affichage de la popup 'Galerie Photo'
         popupModale.classList.add("popup-active")
+        afficherListeProjet()
     })
     // Gestion de la fermeture de la modale
     modalePopup.addEventListener("click", (event) => {
@@ -73,26 +74,12 @@ export function addPhoto(){
         // Réinitialisation des valeurs du formulaire
         titleProject.value = ''
         categoryProject.value = ''
-    })
-}
-
-// Function permettant de naviguer de Ajouter Photo à Galerie Photo
-export function viewPhotoGallery(){
-    const popupModale = document.querySelector(".popup")
-    const popupAddProject = document.querySelector('.popup-add-project')
-    const sendNewProject = document.querySelector(".validation-btn");
-
-    const backBtn = document.querySelector(".back")
-    backBtn.addEventListener("click", () => {
-        // Gestion d'apparance de la modale Ajouter photo
-        popupModale.classList.add('popup-active')
-        popupAddProject.classList.remove('popup-active')
-        sendNewProject.disabled = true
+        choiceCategories()
     })
 }
 
 // Function permettant de récupérer la liste des projet et de l'afficher dans Galerie Photo
-export function afficherListeProjet(){
+function afficherListeProjet(){
     const galleryListe = document.querySelector(".project-contener")
     galleryListe.innerHTML = ''
     fetch("http://localhost:5678/api/works")
@@ -171,55 +158,19 @@ function removeProject(){
 }
 
 
-// Function qui génére dynamiquement le choix des catégorie des projets dans le formulaire
-export function choiceCategories (){
-    const formSelect = document.getElementById("choice-category")
-    const defaultOption = document.createElement("option")
-    defaultOption.value = ""
-    formSelect.appendChild(defaultOption)
+// Function permettant de naviguer de Ajouter Photo à Galerie Photo
+export function viewPhotoGallery(){
+    const popupModale = document.querySelector(".popup")
+    const popupAddProject = document.querySelector('.popup-add-project')
+    const sendNewProject = document.querySelector(".validation-btn");
 
-    fetch("http://localhost:5678/api/categories")
-    .then((response) => {
-        return response.json();
-    }).then((filtres) => {
-        for(let filtre of filtres){
-            const optionCateggory = document.createElement("option")
-            optionCateggory.value = `${filtre.id}`
-            optionCateggory.innerText = `${filtre.name}`
-            formSelect.appendChild(optionCateggory)
-        }
-    })
-}
-
-// Function permettant d'ajouter une photo dans le formulaire
-export function addImage(){
-    const errorPhoto = document.getElementById("error-photo")
-    
-    const uploadPhoto = document.querySelector(".add-photo-here")
-    uploadPhoto.classList.add("active")
-
-    const viewPhoto = document.querySelector(".viewPhoto")
-    const inputFile = document.getElementById('fileInput')
-    const preview = document.getElementById('preview')
-     
-    const addPhotoButton = document.querySelector(".plusAddPhoto")
-    addPhotoButton.addEventListener("click", () => {
-        inputFile.click();
-    })
-    inputFile.addEventListener('change', (event) =>{
-        const file = event.target.files[0];
-
-        if(file) {
-            const urlImg = new FileReader();
-            urlImg.onload  = function (e) {
-                preview.src = e.target.result;
-                viewPhoto.classList.add("active")
-                // Réinitialisation indépendante du message d'erreur lors de l'ajout de l'image//
-                errorPhoto.innerText = ""
-            }
-        uploadPhoto.classList.remove("active");
-        urlImg.readAsDataURL(file)
-        }
+    const backBtn = document.querySelector(".back")
+    backBtn.addEventListener("click", () => {
+        // Gestion d'apparance de la modale Ajouter photo
+        popupModale.classList.add('popup-active')
+        popupAddProject.classList.remove('popup-active')
+        sendNewProject.disabled = true
+        afficherListeProjet()
     })
 }
 
@@ -268,7 +219,7 @@ function sandingForm() {
                 operationStatus.innerText = "Le projet a bien été ajouté.";
                 // Affichage du nouveau projet
                 genererProjet();
-                afficherListeProjet();
+                //afficherListeProjet();
                 // Désactation du bouton d'envoi
                 const sendNewProject = document.querySelector(".validation-btn");
                 sendNewProject.disabled = true; 
@@ -298,18 +249,75 @@ function checkForm() {
     return check
 }
 
+// Function permettant d'ajouter une photo dans le formulaire
+export function addImage(){
+    const errorPhoto = document.getElementById("error-photo")
+    
+    const uploadPhoto = document.querySelector(".add-photo-here")
+    uploadPhoto.classList.add("active")
+
+    const viewPhoto = document.querySelector(".viewPhoto")
+    const inputFile = document.getElementById('fileInput')
+    const preview = document.getElementById('preview')
+     
+    const addPhotoButton = document.querySelector(".plusAddPhoto")
+    addPhotoButton.addEventListener("click", () => {
+        inputFile.click();
+    })
+    inputFile.addEventListener('change', (event) =>{
+        const file = event.target.files[0];
+
+        if(file) {
+            const urlImg = new FileReader();
+            urlImg.onload  = function (e) {
+                preview.src = e.target.result;
+                viewPhoto.classList.add("active")
+                // Réinitialisation indépendante du message d'erreur lors de l'ajout de l'image//
+                errorPhoto.innerText = ""
+            }
+        uploadPhoto.classList.remove("active");
+        urlImg.readAsDataURL(file)
+        } else {
+            errorPhoto.innerText = "Une erreur est survenue lors du chargement de l'image"
+        }
+    })
+}
+
+// Function qui génére dynamiquement le choix des catégorie des projets dans le formulaire
+function choiceCategories (){
+    const errorCategory = document.getElementById("error-category")
+    const formSelect = document.getElementById("choice-category")
+    formSelect.innerHTML = '' // Réinitialisation des options
+    const defaultOption = document.createElement("option")
+    defaultOption.value = ""
+    formSelect.appendChild(defaultOption)
+
+    fetch("http://localhost:5678/api/categories")
+    .then((response) => {
+        return response.json();
+    }).then((filtres) => {
+        for(let filtre of filtres){
+            const optionCateggory = document.createElement("option")
+            optionCateggory.value = `${filtre.id}`
+            optionCateggory.innerText = `${filtre.name}`
+            formSelect.appendChild(optionCateggory)
+        }
+    })
+    .catch(() => {
+        errorCategory.innerText = "Une erreur est survenue lors du chargement des catégories"
+    })
+}
+
 // Réinitialisation des messages d'erreurs et de validation du formulaire d'envoie d'un nouveau projet et de la suppression d'un d'un projet
 function resetErrorMessages(){
     // Sélection des conteneurs de message d'erreur et de validation 
     const errorPhoto = document.getElementById("error-photo")
-    const errorTitle = document.getElementById("error-title")
     const errorCategory = document.getElementById("error-category")
     const operationStatusAddnewProject = document.getElementById("operation-status-add-new-project")
     const operationStatusRemoveProject = document.getElementById("operation-status-remove-project")
     // Suppression des messages d'erreurs et de validation
     errorPhoto.innerText = ''
     operationStatusAddnewProject.innerText = ""
-    errorTitle.innerText = ''
     errorCategory.innerText = ''
     operationStatusRemoveProject.innerText = ''
 }
