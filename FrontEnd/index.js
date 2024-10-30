@@ -135,6 +135,7 @@ function checkConnection(){
         genererFiltres()
         genererProjet()
     }
+    header()
     loginLogout()
 }
 checkConnection()
@@ -192,4 +193,15 @@ function editionButton(){
     porfolioEmplacement.insertBefore(nvldiv, titleH2)
     // Suppression de l'ancien titre
     porfolioEmplacement.removeChild(titleH2)
+}
+
+function header(){
+    const newHeader = document.querySelector('header')
+    if (sessionStorage.getItem('authenticated') === 'true') {
+        if (!newHeader.classList.contains('header-edition-mode')) {
+            newHeader.classList.add('header-edition-mode'); // Ajoute seulement si la classe n'est pas présente
+        }
+    } else if (newHeader.classList.contains('header-edition-mode')) {
+        newHeader.classList.remove('header-edition-mode'); // Retire seulement si la classe est présente
+    }
 }

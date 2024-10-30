@@ -67,65 +67,65 @@
 	</nav>
 </footer>
 
+<div class="background"></div>
 <div class="modale">
-	<section class="popup">
-		<div class="close-modale">
-			<button class="close">
-				<i class="fa-solid fa-x"></i>
-			</button>
-		</div>
-		<h3>Galerie photo</h3>
-		<div class="project-gallery">
-			<div class="project-contener">
+<section class="popup">
+	<div class="close-modale">
+		<button class="close">
+			<i class="fa-solid fa-x"></i>
+		</button>
+	</div>
+	<h3>Galerie photo</h3>
+	<div class="project-gallery">
+		<div class="project-contener">
 
+		</div>
+	</div>
+	<p id="operation-status-remove-project"></p>
+	<button class="btn-popup add-photo">Ajouter une photo</button>
+</section>
+<section class="popup-add-project">
+	<div class="close-modale">
+		<button class="back">
+			<i class="fa-solid fa-arrow-left"></i>
+		</button>
+		<button class="close">
+			<i class="fa-solid fa-x"></i>
+		</button>
+	</div>
+	<h3>Ajout photo</h3>
+	<div class="project-gallery">
+		<div class="add-photo-section">
+			<div class="add-photo-here">
+				<div class="icon-contener">
+					<i class="fa-regular fa-image"></i>
+				</div>
+				<button class="plusAddPhoto">+ Ajouter photo</button>
+				<p>jpg, png : 4mo max</p>
 			</div>
-		</div>
-		<p id="operation-status-remove-project"></p>
-		<button class="btn-popup add-photo">Ajouter une photo</button>
-	</section>
-	
-	<section class="popup-add-project">
-		<div class="close-modale">
-			<button class="back">
-				<i class="fa-solid fa-arrow-left"></i>
-			</button>
-			<button class="close">
-				<i class="fa-solid fa-x"></i>
-			</button>
-		</div>
-		<h3>Ajout photo</h3>
-		<div class="project-gallery">
-			<div class="add-photo-section">
-				<div class="add-photo-here">
-					<div class="icon-contener">
-						<i class="fa-regular fa-image"></i>
-					</div>
-					<button class="plusAddPhoto">+ Ajouter photo</button>
-					<p>jpg, png : 4mo max</p>
-				</div>
-				<p class="error-message" id="error-photo"></p>
-				<div class="viewPhoto">
-					<input type="file" id="fileInput">
-					<img id="preview" src="" alt="Prévisualisation de l'image">
-				</div>
-			</div>			
-			<form>
-				<div class="element-form-contener">
-					<label for="title">Titre</label>
-					<input type="text" name="title" id="title">
-				</div>
-				<p class="error-message" id="error-title"></p>
-				<div class="element-form-contener">
-					<label for="choice-category">Catégorie</label>
-					<select name="category" id="choice-category">
-					</select>
-				</div>
-				<p class="error-message" id="error-category"></p>
-			</form>
-		</div>
-		<p id="operation-status-add-new-project"></p>
-		<button class="btn-popup validation-btn">Valider</button>
-	</section>
+			<p class="error-message" id="error-photo"></p>
+			<div class="viewPhoto">
+				<input type="file" id="fileInput">
+				<img id="preview" src="" alt="Prévisualisation de l'image">
+			</div>
+		</div>			
+		<form>
+			<div class="element-form-contener">
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+			</div>
+			<p class="error-message" id="error-title"></p>
+			<div class="element-form-contener">
+				<label for="choice-category">Catégorie</label>
+				<select name="category" id="choice-category">
+				</select>
+			</div>
+			<p class="error-message" id="error-category"></p>
+		</form>
+	</div>
+	<p id="operation-status-add-new-project"></p>
+	<button class="btn-popup validation-btn">Valider</button>
+</section>
 </div>
 </body>
 </html>

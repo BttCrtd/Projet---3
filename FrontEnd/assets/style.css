@@ -66,6 +66,10 @@ header {
 	margin: 50px auto
 }
 
+.header-edition-mode{
+	margin-top: 97px;
+}
+
 section {
 	margin: 50px 0
 }
@@ -255,6 +259,9 @@ a {
 }
 
 .editing-section{
+	position: fixed;
+	top: 0px;
+	z-index: 4;
 	width: 100%;
 	height: 59px;
 	display: flex;
@@ -310,14 +317,23 @@ a {
 	width: 100%;
 	text-align: center;
 }
+
+.background{
+	display: none;
+    position: fixed;
+	width: 100%;
+	top: 59px;
+	bottom: 0px;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
 .modale {
     display: none;
     position: absolute;
 	width: 100%;
-	height: 469%;
-	top: 59px;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.3);
+	height: 670px;
+	top: 719px;
 	z-index: 2;
 }
 
@@ -333,13 +349,13 @@ a {
 	position: absolute;
 	width: 578px;
 	height: 618px;
-	top: 660px;
+	top: 0px;
 	display: none;
 	flex-direction: column;
 	align-items: center;
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 10px;
-	z-index: 1;
+	z-index: 3;
 	padding:26px;
 	margin: 0;
 }
@@ -447,7 +463,7 @@ a {
 /********* Ajout photo modale ********/
 
 .popup-active{
-	display: flex !important;;
+	display: flex !important;
 }
 
 .popup-add-project .close-modale{

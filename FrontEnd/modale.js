@@ -2,6 +2,8 @@ import {genererProjet} from "./index.js"
 
 // Fonction permettant d'ouvrir la modale
 function modalDisplay(){
+    const background = document.querySelector(".background")
+    background.classList.add("active")
     const modalePopup = document.querySelector('.modale')
     modalePopup.classList.add("active")
 }
@@ -9,6 +11,8 @@ function modalDisplay(){
 // Fonction permettant de fermer la modale 
 function modalHide(){
     // Fermeture de la modale
+    const background = document.querySelector(".background")
+    background.classList.remove("active")
     const modalePopup = document.querySelector('.modale')
     modalePopup.classList.remove("active")
     // Réinitialisation de l'affichage de la popup
@@ -33,7 +37,8 @@ export function initAddEventListenerModale(){
     // Sélection de la popup à afficher
     const popupModale = document.querySelector(".popup")
     // Ciblage des différents éléments servant à fermer la modale
-    const modalePopup = document.querySelector(".modale")
+    const modalePopup = document.querySelector('.modale')
+    const background = document.querySelector(".background")
     const closeButton = document.querySelectorAll(".close")
     // Gestion d'ouverture de la modale
     buttonEdit.addEventListener("click", () => {
@@ -43,6 +48,11 @@ export function initAddEventListenerModale(){
         afficherListeProjet()
     })
     // Gestion de la fermeture de la modale
+    background.addEventListener("click", (event) => {
+        if(event.target === background){
+            modalHide()
+        }
+    })
     modalePopup.addEventListener("click", (event) => {
         if(event.target === modalePopup){
             modalHide()
