@@ -58,7 +58,7 @@ export async function genererProjet(identifiantProjet) {
         // Gestion des erreurs
         console.log("Une erreur est survenue lors du chargement des travaux")
         const errorMessage = document.createElement("p")
-        errorMessage.classList.add("error-generer-projet")
+        errorMessage.classList.add("project-generation-error")
         errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux"
         document.querySelector('.gallery-contener').appendChild(errorMessage)
     }
@@ -109,7 +109,7 @@ function genererFiltres(){
     .catch (() => {
         console.log("Une erreur est survenue lors du chargement des filtres")
         const errorMessage = document.createElement("p")
-        errorMessage.classList.add("error-generer-projet")
+        errorMessage.classList.add("filter-generation-filter")
         errorMessage.innerText = "Une erreur est survenue lors du chargement des filtres"
         filtreContener.appendChild(errorMessage)
         sectionPortfolio.insertBefore(filtreContener, div);
@@ -155,7 +155,7 @@ function editionMode(){
     const afterElement = document.querySelector("header")
     // Création du bandeau 'mode edition'
     const editingMode = document.createElement("div")
-    editingMode.classList.add("editing-section")
+    editingMode.classList.add("edition-mode-banner")
     const info = document.createElement("p")
     const iconInfo = document.createElement("i")
     iconInfo.classList.add("fa-regular")
@@ -175,7 +175,7 @@ function editionButton(){
     // Création d'une division contenant le titre et le bouton 'modifier' pour les afficher en ligne
     // Création de la nouvelle division
     const nvldiv = document.createElement("div")
-    nvldiv.classList.add("edit-new-project")
+    nvldiv.classList.add("container-edit-btn")
     // Création du titre dans la div
     const h2 = document.createElement("h2")
     h2.innerText = "Mes projets"

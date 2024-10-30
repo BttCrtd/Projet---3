@@ -1,0 +1,367 @@
+/*********** Edition Mode *********/
+/* bandeau 'mode edition' */
+.edition-mode-banner{
+	position: fixed;
+	top: 0px;
+	z-index: 4;
+	width: 100%;
+	height: 59px;
+	display: flex;
+	gap: 21px;
+	align-items: center;
+	justify-content: center;
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(0, 0, 0, 1);
+}
+
+.fa-pen-to-square{
+	color: #fff;
+}
+
+/* bouton modifier */
+.container-edit-btn{
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	margin-bottom: 92px;
+}
+
+#portfolio .container-edit-btn h2{
+	margin-bottom: 0;
+}
+
+.edit-btn{
+	height: 18px;
+	width: 84px;
+	color: rgba(0, 0, 0, 1);
+	background-color: transparent;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: center;
+	border: none;
+}
+
+.edit-btn:hover{
+	background-color: transparent;
+	color: rgba(0, 0, 0, 1);
+}
+
+#portfolio .fa-pen-to-square{
+	color: rgba(0, 0, 0, 1);
+}
+
+/*************** Modale ***************/
+/* Général */
+
+.background{
+	display: none;
+    position: fixed;
+	width: 100%;
+	top: 59px;
+	bottom: 0px;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modale {
+    display: none;
+    position: absolute;
+	width: 100%;
+	height: 670px;
+	top: 719px;
+	z-index: 2;
+}
+
+
+.active {
+    display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.modale section{
+	position: absolute;
+	width: 578px;
+	height: 618px;
+	top: 0px;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 10px;
+	z-index: 3;
+	padding:26px;
+	margin: 0;
+}
+
+.popup-active{
+	display: flex !important;
+}
+
+.modale h3{
+	font-size: 26px;
+	margin-bottom: 46px;
+}
+
+.modale-body {
+	width: 420px;
+	height: 424px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 30px;
+	border-bottom: 1px solid rgba(179, 179, 179, 1);
+}
+
+/* Bouton fermeture modale */
+.close-modale{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+	margin-bottom: 10px;
+}
+
+.close-btn{
+	background-color: transparent;
+	border: none;
+	width: 24px;
+	height: 24px;
+}
+
+.fa-x{
+	font-size: 12px;
+	color: rgba(0, 0, 0, 1);
+}
+
+/* Modal GaleriePhoto */
+.project-list-container{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	row-gap: 29px;
+	margin-bottom: 67.29px;
+	gap: 9px;
+	overflow: auto;
+}
+
+.project-list-container div {
+	height: 102.57px;
+	width: 76.8px;
+	position: relative;
+}
+
+.project-list-container img{
+	height: 100%;
+}
+
+.delete-btn{
+	height: 17px;
+	width: 17px;
+	position: absolute;
+	top: 6.43px;
+	right: 6.43px;
+	background-color: rgba(0, 0, 0, 1);
+	border: none;
+	border-radius: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+}
+
+.fa-trash-can{
+	color: rgba(255, 255, 255, 1);
+	font-size: 11px;
+}
+
+.modale-btn{
+	width: 40%;
+	height: 36px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	margin : 2em auto ;
+	min-width: 100px;
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #1D6154;
+	border-radius: 60px ;
+	margin: 33px 0 19px 0;
+	padding: 0;
+}
+
+.add-photo-btn{
+	margin: 0px 0 19px 0;
+	background-color: rgba(29, 97, 84, 1);
+	border-color: rgba(29, 97, 84, 1);
+}
+
+
+/* Modale Ajouter Photo **/
+
+.modale-add-photo .close-modale{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.close-modale .back{
+	background-color: transparent;
+	border: none;
+	width: 21px;
+	height: 21px;
+}
+
+.fa-arrow-left{
+	font-size: 21px;
+}
+
+.add-photo-section{
+	width: 420px;
+	height: 169px;
+	background-color: rgba(232, 241, 246, 1);
+	color: rgba(68, 68, 68, 1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.add-photo-here{
+	padding: 13px 13px 0px 13px;
+	height: 143px;
+	width: 394px;
+	display: none;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 6px;
+	font-size: 10px;
+}
+
+.icon-container{
+	height: 76px;
+	width: 76px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.fa-image{
+	color: rgba(185, 197, 204, 1);
+	font-size: 59.62px;
+}
+
+.plusAddPhoto-btn{
+	width: 173px;
+	height: 36px;
+	background-color: rgba(203, 214, 220, 1);
+	color: rgba(48, 102, 133, 1);
+	font-size: 14px;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	border: none;
+	border-radius: 50px;
+}
+
+#fileInput{
+	display: none;
+}
+
+.viewPhoto{
+	height: 169px;
+	width: 420px;
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#preview{
+	height: 100%;
+}
+
+.modale-add-photo form{
+	width: 420px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 26px;
+}
+
+.element-form-contener{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	gap: 10px;
+}
+
+.modale-add-photo input,
+.modale-add-photo select{
+	width: 100%;
+	height: 51px;
+	background-color: transparent;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 0;
+	padding-left: 16px;
+}
+
+.modale-add-photo input{
+	margin-bottom: 21px;
+}
+
+.validation-btn[disabled] {
+	margin: 0px 0 19px 0;
+	background-color: rgba(167, 167, 167, 1);
+	border-color: rgba(167, 167, 167, 1);
+	cursor: default;
+}
+
+.validation-btn{
+	margin: 0px 0 19px 0;
+	background-color: rgba(29, 97, 84, 1);
+ 	border-color: rgba(29, 97, 84, 1);
+}
+
+/* Message erreur et validation */
+
+#error-photo{
+	height: 13px;
+	color: red;
+	font-size: 10px;
+	text-align: center;
+}
+
+#error-category{
+	width: 100%;
+	margin-top: 2px;
+	height: 19px;
+	color: red;
+	font-size: 10px;
+	text-align: left;
+}
+
+.operation-status-add-new-project,
+.operation-status-remove-project{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 13px;
+	color: green;
+	font-size: 13px;
+}
+
+.error-view-project-list{
+	color: red
+}
+
+.error{
+	color: red;
+}

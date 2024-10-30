@@ -9,6 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/edition.css">
 	<script type="module" src="index.js" defer></script>
 	<script type="module" src="login.js" defer></script>
 	<script type="module" src="modale.js" defer></script>
@@ -71,36 +72,36 @@
 <div class="modale">
 <section class="popup">
 	<div class="close-modale">
-		<button class="close">
+		<button class="close-btn">
 			<i class="fa-solid fa-x"></i>
 		</button>
 	</div>
 	<h3>Galerie photo</h3>
-	<div class="project-gallery">
-		<div class="project-contener">
+	<div class="modale-body">
+		<div class="project-list-container">
 
 		</div>
 	</div>
-	<p id="operation-status-remove-project"></p>
-	<button class="btn-popup add-photo">Ajouter une photo</button>
+	<p class="operation-status-remove-project"></p>
+	<button class="modale-btn add-photo-btn">Ajouter une photo</button>
 </section>
-<section class="popup-add-project">
+<section class="modale-add-photo">
 	<div class="close-modale">
 		<button class="back">
 			<i class="fa-solid fa-arrow-left"></i>
 		</button>
-		<button class="close">
+		<button class="close-btn">
 			<i class="fa-solid fa-x"></i>
 		</button>
 	</div>
 	<h3>Ajout photo</h3>
-	<div class="project-gallery">
+	<div class="modale-body">
 		<div class="add-photo-section">
 			<div class="add-photo-here">
-				<div class="icon-contener">
+				<div class="icon-container">
 					<i class="fa-regular fa-image"></i>
 				</div>
-				<button class="plusAddPhoto">+ Ajouter photo</button>
+				<button class="plusAddPhoto-btn">+ Ajouter photo</button>
 				<p>jpg, png : 4mo max</p>
 			</div>
 			<p class="error-message" id="error-photo"></p>
@@ -123,8 +124,8 @@
 			<p class="error-message" id="error-category"></p>
 		</form>
 	</div>
-	<p id="operation-status-add-new-project"></p>
-	<button class="btn-popup validation-btn">Valider</button>
+	<p class="operation-status-add-new-project"></p>
+	<button class="modale-btn validation-btn">Valider</button>
 </section>
 </div>
 </body>

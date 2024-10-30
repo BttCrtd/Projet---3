@@ -17,7 +17,7 @@ function modalHide(){
     modalePopup.classList.remove("active")
     // Réinitialisation de l'affichage de la popup
     const popupModale = document.querySelector(".popup")
-    const popudAddProject = document.querySelector('.popup-add-project')
+    const popudAddProject = document.querySelector('.modale-add-photo')
     const sendNewProject = document.querySelector(".validation-btn");
     sendNewProject.disabled = true;
     if(!popupModale.classList.contains('popup-active')){
@@ -39,7 +39,7 @@ export function initAddEventListenerModale(){
     // Ciblage des différents éléments servant à fermer la modale
     const modalePopup = document.querySelector('.modale')
     const background = document.querySelector(".background")
-    const closeButton = document.querySelectorAll(".close")
+    const closeButton = document.querySelectorAll(".close-btn")
     // Gestion d'ouverture de la modale
     buttonEdit.addEventListener("click", () => {
         modalDisplay()
@@ -66,13 +66,13 @@ export function initAddEventListenerModale(){
 // Function permettant de naviguer de Galerie Photo à Ajouter photo
 export function addPhoto(){
     const popupModale = document.querySelector(".popup")
-    const popupAddProject = document.querySelector('.popup-add-project')
+    const popupAddProject = document.querySelector('.modale-add-photo')
 
     // Ciblage des éléments du formulaire
     const titleProject = document.getElementById("title")
     const categoryProject = document.getElementById("choice-category")
     
-    const btnAddPhoto = document.querySelector(".add-photo")
+    const btnAddPhoto = document.querySelector(".add-photo-btn")
     btnAddPhoto.addEventListener("click", () => {
         // Réinitialisation des messages d'erreurs 
         resetErrorMessages()
@@ -90,7 +90,7 @@ export function addPhoto(){
 
 // Function permettant de récupérer la liste des projet et de l'afficher dans Galerie Photo
 function afficherListeProjet(){
-    const galleryListe = document.querySelector(".project-contener")
+    const galleryListe = document.querySelector(".project-list-container")
     galleryListe.innerHTML = ''
     fetch("http://localhost:5678/api/works")
     .then((response) => {
@@ -131,9 +131,9 @@ function afficherListeProjet(){
 
 // Fonction permettant la suppression des projets
 function removeProject(){
-    const operationStatus = document.getElementById("operation-status-remove-project")
+    const operationStatus = document.querySelector(".operation-status-remove-project")
     // Sélection du conteneur des projets
-    const galleryListe = document.querySelector(".project-contener")  
+    const galleryListe = document.querySelector(".project-list-container")  
     // Sélection de tous les boutons de suppression  
     const deleteBtn = document.querySelectorAll(".delete-btn")
     deleteBtn.forEach(button => {
@@ -162,6 +162,7 @@ function removeProject(){
             .catch(() =>{
                 console.log('Une erreur est survenue lors de la suppression du projet')
                 operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard."
+                operationStatus.classList.add('error')
             })
         })
     })
@@ -171,7 +172,7 @@ function removeProject(){
 // Function permettant de naviguer de Ajouter Photo à Galerie Photo
 export function viewPhotoGallery(){
     const popupModale = document.querySelector(".popup")
-    const popupAddProject = document.querySelector('.popup-add-project')
+    const popupAddProject = document.querySelector('.modale-add-photo')
     const sendNewProject = document.querySelector(".validation-btn");
 
     const backBtn = document.querySelector(".back")
@@ -202,7 +203,7 @@ export function addNewProject() {
 }
 
 function sandingForm() {
-    const operationStatus = document.getElementById("operation-status-add-new-project");
+    const operationStatus = document.querySelector(".operation-status-add-new-project");
     // Vérification de la validité du formulaire
     if (checkForm()) {
         const imgSrc = document.getElementById('fileInput');
@@ -238,6 +239,7 @@ function sandingForm() {
         .catch(() => {
             console.log("Erreur lors de l'ajout du projet :");
             operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard.";
+            operationStatus.classList.add('error')
         });
     } 
 }
@@ -270,7 +272,7 @@ export function addImage(){
     const inputFile = document.getElementById('fileInput')
     const preview = document.getElementById('preview')
      
-    const addPhotoButton = document.querySelector(".plusAddPhoto")
+    const addPhotoButton = document.querySelector(".plusAddPhoto-btn")
     addPhotoButton.addEventListener("click", () => {
         inputFile.click();
     })
@@ -323,8 +325,14 @@ function resetErrorMessages(){
     // Sélection des conteneurs de message d'erreur et de validation 
     const errorPhoto = document.getElementById("error-photo")
     const errorCategory = document.getElementById("error-category")
-    const operationStatusAddnewProject = document.getElementById("operation-status-add-new-project")
-    const operationStatusRemoveProject = document.getElementById("operation-status-remove-project")
+    const operationStatusAddnewProject = document.querySelector(".operation-status-add-new-project")
+    if(operationStatusAddnewProject.classList.contains('error')){
+        operationStatusAddnewProject.classList.remove('error')
+    }
+    const operationStatusRemoveProject = document.querySelector(".operation-status-remove-project")
+    if(operationStatusRemoveProject.classList.contains('error')){
+        operationStatusRemoveProject.classList.remove('error')
+    }
     // Suppression des messages d'erreurs et de validation
     errorPhoto.innerText = ''
     operationStatusAddnewProject.innerText = ""
