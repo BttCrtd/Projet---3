@@ -1,10 +1,10 @@
-import { genererProjet } from "./index.js";
+import { generateProjects } from "./index.js";
 
 // Fonction permettant d'ouvrir la modale
 function modalDisplay() {
   const background = document.querySelector(".background");
-  background.classList.add("active");
   const modalePopup = document.querySelector(".modale");
+  background.classList.add("active");
   modalePopup.classList.add("active");
 }
 
@@ -12,17 +12,17 @@ function modalDisplay() {
 function modalHide() {
   // Fermeture de la modale
   const background = document.querySelector(".background");
-  background.classList.remove("active");
   const modalePopup = document.querySelector(".modale");
+  background.classList.remove("active");
   modalePopup.classList.remove("active");
   // Réinitialisation de l'affichage de la popup
-  const popupModale = document.querySelector(".popup");
-  const popudAddProject = document.querySelector(".modale-add-photo");
+  const modaleGalleryPhoto = document.querySelector(".modale-gallery-photo");
+  const modalAddPhoto = document.querySelector(".modale-add-photo");
   const sendNewProject = document.querySelector(".validation-btn");
   sendNewProject.disabled = true;
-  if (!popupModale.classList.contains("popup-active")) {
-    popupModale.classList.add("popup-active");
-    popudAddProject.classList.remove("popup-active");
+  if (!modaleGalleryPhoto.classList.contains("popup-active")) {
+    modaleGalleryPhoto.classList.add("popup-active");
+    modalAddPhoto.classList.remove("popup-active");
     // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
     modaleManagement();
   }
@@ -35,7 +35,7 @@ export function initAddEventListenerModale() {
   // Ciblage du bouton permettant d'afficher la modale
   const buttonEdit = document.querySelector(".edit-btn");
   // Sélection de la popup à afficher
-  const popupModale = document.querySelector(".popup");
+  const modaleGalleryPhoto = document.querySelector(".modale-gallery-photo");
   // Ciblage des différents éléments servant à fermer la modale
   const modalePopup = document.querySelector(".modale");
   const background = document.querySelector(".background");
@@ -44,8 +44,8 @@ export function initAddEventListenerModale() {
   buttonEdit.addEventListener("click", () => {
     modalDisplay();
     // Affichage de la popup 'Galerie Photo'
-    popupModale.classList.add("popup-active");
-    afficherListeProjet();
+    modaleGalleryPhoto.classList.add("popup-active");
+    displayListProject();
   });
   // Gestion de la fermeture de la modale
   background.addEventListener("click", (event) => {
@@ -64,9 +64,9 @@ export function initAddEventListenerModale() {
 }
 
 // Function permettant de naviguer de Galerie Photo à Ajouter photo
-export function addPhoto() {
-  const popupModale = document.querySelector(".popup");
-  const popupAddProject = document.querySelector(".modale-add-photo");
+export function goAddPhoto() {
+  const modaleGalleryPhoto = document.querySelector(".modale-gallery-photo");
+  const modalAddPhoto = document.querySelector(".modale-add-photo");
 
   // Ciblage des éléments du formulaire
   const titleProject = document.getElementById("title");
@@ -79,8 +79,8 @@ export function addPhoto() {
     // Gestion d'apparence et réinitialisation du conteneur d'image dans la popup 'Ajouter Photo'
     modaleManagement();
     // Gestion de l'affichage des popups"
-    popupModale.classList.remove("popup-active");
-    popupAddProject.classList.add("popup-active");
+    modaleGalleryPhoto.classList.remove("popup-active");
+    modalAddPhoto.classList.add("popup-active");
     // Réinitialisation des valeurs du formulaire
     titleProject.value = "";
     categoryProject.value = "";
@@ -89,35 +89,35 @@ export function addPhoto() {
 }
 
 // Function permettant de récupérer la liste des projet et de l'afficher dans Galerie Photo
-function afficherListeProjet() {
-  const galleryListe = document.querySelector(".project-list-container");
-  galleryListe.innerHTML = "";
+function displayListProject() {
+  const galleryList = document.querySelector(".project-list-container");
+  galleryList.innerHTML = "";
   fetch("http://localhost:5678/api/works")
     .then((response) => {
       return response.json();
     })
-    .then((Listeprojets) => {
-      console.log(Listeprojets);
-      for (let projet of Listeprojets) {
+    .then((projectList) => {
+      console.log(projectList);
+      for (let project of projectList) {
         // Création d'un conteneur pour le projet
-        const imageProjectContener = document.createElement("div");
-        imageProjectContener.id = `${projet.id}`;
+        const imageProjectContainer = document.createElement("div");
+        imageProjectContainer.id = `${project.id}`;
         // Creation de l'image du projet
         const imageProject = document.createElement("img");
-        imageProject.src = projet.imageUrl;
-        imageProject.alt = projet.title;
+        imageProject.src = project.imageUrl;
+        imageProject.alt = project.title;
         // Creation du bouton pour supprimer l'image
         const binBtn = document.createElement("button");
-        binBtn.id = `${projet.id}`;
+        binBtn.id = `${project.id}`;
         binBtn.classList.add("delete-btn");
         const binIcon = document.createElement("i");
         binIcon.classList.add("fa-solid");
         binIcon.classList.add("fa-trash-can");
         binBtn.appendChild(binIcon);
         // Assemblage et ajout du projet dans la gallerie
-        imageProjectContener.appendChild(imageProject);
-        imageProjectContener.appendChild(binBtn);
-        galleryListe.appendChild(imageProjectContener);
+        imageProjectContainer.appendChild(imageProject);
+        imageProjectContainer.appendChild(binBtn);
+        galleryList.appendChild(imageProjectContainer);
       }
       removeProject();
     })
@@ -129,7 +129,7 @@ function afficherListeProjet() {
       errorMessage.classList.add("error-view-project-list");
       errorMessage.innerText =
         "Une erreur est survenue lors de la récupération des projets";
-      galleryListe.appendChild(errorMessage);
+      galleryList.appendChild(errorMessage);
     });
 }
 
@@ -139,7 +139,7 @@ function removeProject() {
     ".operation-status-remove-project"
   );
   // Sélection du conteneur des projets
-  const galleryListe = document.querySelector(".project-list-container");
+  const galleryList = document.querySelector(".project-list-container");
   // Sélection de tous les boutons de suppression
   const deleteBtn = document.querySelectorAll(".delete-btn");
   deleteBtn.forEach((button) => {
@@ -160,8 +160,8 @@ function removeProject() {
             const deletedProject = document.getElementById(btnId);
             if (deletedProject) {
               operationStatus.innerText = "Le projet à bien été supprimé";
-              galleryListe.removeChild(deletedProject);
-              genererProjet();
+              galleryList.removeChild(deletedProject);
+              generateProjects();
             }
           }
         })
@@ -179,17 +179,17 @@ function removeProject() {
 
 // Function permettant de naviguer de Ajouter Photo à Galerie Photo
 export function viewPhotoGallery() {
-  const popupModale = document.querySelector(".popup");
-  const popupAddProject = document.querySelector(".modale-add-photo");
+  const modaleGalleryPhoto = document.querySelector(".modale-gallery-photo");
+  const modalAddPhoto = document.querySelector(".modale-add-photo");
   const sendNewProject = document.querySelector(".validation-btn");
 
   const backBtn = document.querySelector(".back");
   backBtn.addEventListener("click", () => {
     // Gestion d'apparance de la modale Ajouter photo
-    popupModale.classList.add("popup-active");
-    popupAddProject.classList.remove("popup-active");
+    modaleGalleryPhoto.classList.add("popup-active");
+    modalAddPhoto.classList.remove("popup-active");
     sendNewProject.disabled = true;
-    afficherListeProjet();
+    displayListProject();
   });
 }
 
@@ -239,8 +239,7 @@ function sandingForm() {
           resetErrorMessages();
           operationStatus.innerText = "Le projet a bien été ajouté.";
           // Affichage du nouveau projet
-          genererProjet();
-          //afficherListeProjet();
+          generateProjects();
           // Désactation du bouton d'envoi
           const sendNewProject = document.querySelector(".validation-btn");
           sendNewProject.disabled = true;

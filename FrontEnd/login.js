@@ -22,13 +22,13 @@ if (submit) {
       document.getElementById("error-message").innerText = "";
       event.preventDefault();
       // Récupération de la valeur saisie pour l'email
-      const email = document.getElementById("E-mail").value;
+      const userEmail = document.getElementById("E-mail").value;
       // Récupération de la valeur saisie pour le mot de passe
-      const motDePasse = document.getElementById("mot-de-passe").value;
+      const userPassword = document.getElementById("password").value;
       // Stockage des valeurs à envoyer à l'API
       const dataLogin = {
-        email: email,
-        password: motDePasse,
+        email: userEmail,
+        password: userPassword,
       };
       // Envoie des données de connection à l'API
       fetch("http://localhost:5678/api/users/login", {
