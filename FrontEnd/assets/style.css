@@ -151,7 +151,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -217,7 +217,7 @@ a {
 
 /* Filtres */
 
-.filters-contener{
+.filters-container{
 	width: 585px;
 	display: flex;
 	align-items: center;
@@ -228,7 +228,7 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-.btn-tous{
+.all-btn{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -259,7 +259,7 @@ input[type="submit"] {
 }
 
 /* Gallerie */
-.gallery-contener{
+.gallery-container{
 	margin-bottom: 42px;
 	min-height: 19px;
 }

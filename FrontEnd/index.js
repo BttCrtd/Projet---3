@@ -60,7 +60,7 @@ export async function genererProjet(identifiantProjet) {
         const errorMessage = document.createElement("p")
         errorMessage.classList.add("project-generation-error")
         errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux"
-        document.querySelector('.gallery-contener').appendChild(errorMessage)
+        document.querySelector('.gallery-container').appendChild(errorMessage)
     }
 }
 
@@ -69,11 +69,11 @@ function genererFiltres(){
     // Récupération de l'élément du DOM qui accueillera les projets
     const sectionPortfolio = document.querySelector("#portfolio")
     // Récupération de l'élément du DOM avant lequel il faudra insérer les filtres
-    const div = document.querySelector(".gallery-contener")
+    const div = document.querySelector(".gallery-container")
 
     // Creation du conteneur des filtres
     const filtreContener = document.createElement("div")
-    filtreContener.classList.add("filters-contener")
+    filtreContener.classList.add("filters-container")
 
     // Récupération des catégories depuis l'API
     
@@ -86,7 +86,7 @@ function genererFiltres(){
         // Création du bouton filtres qui affiche tous les projets
         const btnAll = document.createElement("button")
         btnAll.innerText = "Tous"
-        btnAll.classList.add("btn-tous")
+        btnAll.classList.add("all-btn")
         
         btnAll.addEventListener("click", () => {
             genererProjet()
