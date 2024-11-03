@@ -60,8 +60,7 @@ export async function generateProjects(idProject) {
     console.log("Une erreur est survenue lors du chargement des travaux");
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("project-generation-error");
-    errorMessage.innerText =
-      "Une erreur est survenue lors du chargement des travaux";
+    errorMessage.innerText = "Une erreur est survenue lors du chargement des travaux";
     document.querySelector(".gallery-container").appendChild(errorMessage);
   }
 }
@@ -113,8 +112,7 @@ function generateFilters() {
       console.log("Une erreur est survenue lors du chargement des filtres");
       const errorMessage = document.createElement("p");
       errorMessage.classList.add("filter-generation-filter");
-      errorMessage.innerText =
-        "Une erreur est survenue lors du chargement des filtres";
+      errorMessage.innerText = "Une erreur est survenue lors du chargement des filtres";
       filtersContainer.appendChild(errorMessage);
       portfolioSection.insertBefore(filtersContainer, galleryContainer);
     });

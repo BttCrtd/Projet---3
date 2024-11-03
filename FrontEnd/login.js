@@ -77,11 +77,7 @@ function answerManagement(reponseApi) {
   if (reponseApi.status === 200) {
     return reponseApi.json();
   }
-  if (
-    reponseApi.status !== 404 &&
-    reponseApi.status !== 401 &&
-    reponseApi.status !== 200
-  ) {
+  if (reponseApi.status !== 404 && reponseApi.status !== 401 && reponseApi.status !== 200) {
     loginLogout();
     return null;
   }

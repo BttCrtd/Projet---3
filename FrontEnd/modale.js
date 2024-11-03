@@ -122,22 +122,17 @@ function displayListProject() {
       removeProject();
     })
     .catch(() => {
-      console.log(
-        "Une erreur est survenue lors de la récupération des projets"
-      );
+      console.log("Une erreur est survenue lors de la récupération des projets");
       const errorMessage = document.createElement("p");
       errorMessage.classList.add("error-view-project-list");
-      errorMessage.innerText =
-        "Une erreur est survenue lors de la récupération des projets";
+      errorMessage.innerText = "Une erreur est survenue lors de la récupération des projets";
       galleryList.appendChild(errorMessage);
     });
 }
 
 // Fonction permettant la suppression des projets
 function removeProject() {
-  const operationStatus = document.querySelector(
-    ".operation-status-remove-project"
-  );
+  const operationStatus = document.querySelector(".operation-status-remove-project");
   // Sélection du conteneur des projets
   const galleryList = document.querySelector(".project-list-container");
   // Sélection de tous les boutons de suppression
@@ -166,11 +161,8 @@ function removeProject() {
           }
         })
         .catch(() => {
-          console.log(
-            "Une erreur est survenue lors de la suppression du projet"
-          );
-          operationStatus.innerText =
-            "Une erreur est survenue. Veuillez réessayer plus tard.";
+          console.log( "Une erreur est survenue lors de la suppression du projet");
+          operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard.";
           operationStatus.classList.add("error");
         });
     });
@@ -247,8 +239,7 @@ function sandingForm() {
       })
       .catch(() => {
         console.log("Erreur lors de l'ajout du projet :");
-        operationStatus.innerText =
-          "Une erreur est survenue. Veuillez réessayer plus tard.";
+        operationStatus.innerText = "Une erreur est survenue. Veuillez réessayer plus tard.";
         operationStatus.classList.add("error");
       });
   }
@@ -263,11 +254,7 @@ function checkForm() {
   const categoryProject = document.getElementById("choice-category");
 
   // Vérifier si tous les champs sont remplis
-  if (
-    imgSrc.files.length > 0 &&
-    titleProject.value !== "" &&
-    categoryProject.value !== ""
-  ) {
+  if ( imgSrc.files.length > 0 && titleProject.value !== "" && categoryProject.value !== "") {
     // Activation du bouton d'envoie
     sendNewProject.disabled = false;
     check = true;
@@ -304,8 +291,7 @@ export function addImage() {
       uploadPhoto.classList.remove("active");
       urlImg.readAsDataURL(file);
     } else {
-      errorPhoto.innerText =
-        "Une erreur est survenue lors du chargement de l'image";
+      errorPhoto.innerText = "Une erreur est survenue lors du chargement de l'image";
     }
   });
 }
@@ -332,8 +318,7 @@ function choiceCategories() {
       }
     })
     .catch(() => {
-      errorCategory.innerText =
-        "Une erreur est survenue lors du chargement des catégories";
+      errorCategory.innerText = "Une erreur est survenue lors du chargement des catégories";
     });
 }
 
@@ -342,15 +327,11 @@ function resetErrorMessages() {
   // Sélection des conteneurs de message d'erreur et de validation
   const errorPhoto = document.getElementById("error-photo");
   const errorCategory = document.getElementById("error-category");
-  const operationStatusAddnewProject = document.querySelector(
-    ".operation-status-add-new-project"
-  );
+  const operationStatusAddnewProject = document.querySelector(".operation-status-add-new-project");
   if (operationStatusAddnewProject.classList.contains("error")) {
     operationStatusAddnewProject.classList.remove("error");
   }
-  const operationStatusRemoveProject = document.querySelector(
-    ".operation-status-remove-project"
-  );
+  const operationStatusRemoveProject = document.querySelector( ".operation-status-remove-project");
   if (operationStatusRemoveProject.classList.contains("error")) {
     operationStatusRemoveProject.classList.remove("error");
   }
