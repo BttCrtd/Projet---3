@@ -26,7 +26,7 @@ export function projectSheet(idProject, listProject) {
 }
 
 // Fonction qui génére l'affichage des fiches projets
-export async function generateProjects(idProject) {
+export async function generateProjects(idProjectCategory) {
   // Récupération de l'élément du DOM qui accueillera les projets
   const containerProjects = document.querySelector(".gallery");
   // Réinitialisation de la section
@@ -40,7 +40,7 @@ export async function generateProjects(idProject) {
       .then((listProject) => {
         console.log(listProject);
         // Création de toutes les fiches projets //
-        if (idProject === undefined) {
+        if (idProjectCategory === undefined) {
           for (const project of listProject) {
             const myProject = projectSheet(project.id, listProject);
             containerProjects.appendChild(myProject);
@@ -48,7 +48,7 @@ export async function generateProjects(idProject) {
         } else {
           // Création des fiches projets en fonction de leur catégorie //
           for (const project of listProject) {
-            if (idProject === project.categoryId) {
+            if (idProjectCategory === project.categoryId) {
               const myProject = projectSheet(project.id, listProject);
               containerProjects.appendChild(myProject);
             }

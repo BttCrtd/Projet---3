@@ -271,7 +271,8 @@ export function addImage() {
 
   const viewPhoto = document.querySelector(".viewPhoto");
   const inputFile = document.getElementById("fileInput");
-  const preview = document.getElementById("preview");
+  let preview = document.createElement('img')
+  preview.id = "preview"
 
   const addPhotoButton = document.querySelector(".plusAddPhoto-btn");
   addPhotoButton.addEventListener("click", () => {
@@ -279,6 +280,7 @@ export function addImage() {
   });
   inputFile.addEventListener("change", (event) => {
     const file = event.target.files[0];
+    viewPhoto.insertBefore(preview, inputFile)
 
     if (file) {
       const urlImg = new FileReader();
@@ -349,11 +351,9 @@ function modaleManagement() {
   const viewPhoto = document.querySelector(".viewPhoto");
   // Ciblage des éléments du conteneur viewPhoto
   const inputFile = document.getElementById("fileInput");
-  const preview = document.getElementById("preview");
   // Gestion de l'apparence du conteneur affichant l'image importée
   onladPhoto.classList.add("active");
   viewPhoto.classList.remove("active");
   // Réinitialisation de l'image
-  preview.src = "";
   inputFile.value = "";
 }
