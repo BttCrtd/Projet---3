@@ -207,6 +207,15 @@ a {
 	color: rgba(0, 0, 0, 1);
 }
 
+header nav a:hover {
+	font-weight: bold;
+	font-size: 15.9px;
+}
+
+nav img {
+	width: 22px;
+}
+
 /* Portfolio */
 #portfolio {
 	min-height: 135px;
