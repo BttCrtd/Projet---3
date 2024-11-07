@@ -146,7 +146,7 @@ function removeProject() {
         method: "DELETE",
         body: btnId,
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`, // Remplace <ton_token_ici> par ton vrai token
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`, 
           Accept: "*/*",
         },
       })
@@ -258,6 +258,9 @@ function checkForm() {
     // Activation du bouton d'envoie
     sendNewProject.disabled = false;
     check = true;
+  } else {
+    sendNewProject.disabled = true;
+    check = false
   }
   return check;
 }
