@@ -237,9 +237,10 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-.all-btn{
+#active-btn{
 	font-family: 'Syne';
 	font-weight: 700;
+	font-size: 16px;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
@@ -250,7 +251,7 @@ input[type="submit"] {
 	border-radius: 60px ;
 }
 
-.other-btn {
+.filter-btn {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 16px;

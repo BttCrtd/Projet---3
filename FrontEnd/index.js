@@ -86,9 +86,11 @@ function generateFilters() {
       // Création du bouton filtres qui affiche tous les projets
       const btnAll = document.createElement("button");
       btnAll.innerText = "Tous";
-      btnAll.classList.add("all-btn");
+      btnAll.classList.add("filter-btn");
+      btnAll.id = "active-btn"
 
       btnAll.addEventListener("click", () => {
+        filterBtnAppearance(btnAll)
         generateProjects();
       });
       filtersContainer.appendChild(btnAll);
@@ -96,9 +98,10 @@ function generateFilters() {
       for (const filter of filters) {
         const filterBtn = document.createElement("button");
         filterBtn.innerText = filter.name;
-        filterBtn.classList.add("other-btn");
+        filterBtn.classList.add("filter-btn");
 
         filterBtn.addEventListener("click", () => {
+          filterBtnAppearance(filterBtn)
           generateProjects(filter.id);
         });
         filtersContainer.appendChild(filterBtn);
@@ -204,3 +207,14 @@ function header() {
     }
   }
 }
+
+// Fonction qui gére l'apparence des boutons de filtrage 
+function filterBtnAppearance(btnClicked) {
+  // Récupération de tous les boutons
+  const buttons = document.querySelectorAll(".filter-btn");
+  // Réinitialisation de l'identifiant actif des boutons
+  buttons.forEach(button => button.id = "");
+  // Ajout de l'identifiant actif du bouto qui a été clické
+  btnClicked.id = "active-btn";
+}
+
