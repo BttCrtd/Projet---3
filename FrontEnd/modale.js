@@ -97,7 +97,6 @@ function displayListProject() {
       return response.json();
     })
     .then((projectList) => {
-      console.log(projectList);
       for (let project of projectList) {
         // Création d'un conteneur pour le projet
         const imageProjectContainer = document.createElement("div");
@@ -232,7 +231,7 @@ function sandingForm() {
           operationStatus.innerText = "Le projet a bien été ajouté.";
           // Affichage du nouveau projet
           generateProjects();
-          // Désactation du bouton d'envoi
+          // Desactivation du bouton d'envoi
           const sendNewProject = document.querySelector(".validation-btn");
           sendNewProject.disabled = true;
         }

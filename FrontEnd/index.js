@@ -38,7 +38,6 @@ export async function generateProjects(idProjectCategory) {
         return response.json();
       })
       .then((listProject) => {
-        console.log(listProject);
         // Création de toutes les fiches projets //
         if (idProjectCategory === undefined) {
           for (const project of listProject) {
@@ -83,7 +82,6 @@ function generateFilters() {
       return response.json();
     })
     .then((filters) => {
-      console.log(filters);
       //////////////// Création des boutons filtres /////////////////
       // Création du bouton filtres qui affiche tous les projets
       const btnAll = document.createElement("button");
@@ -118,10 +116,9 @@ function generateFilters() {
     });
 }
 
-// Fonction qui gére l'affichage suisvant le status de l'utilisateur
+// Fonction qui gére l'affichage suivant le status de l'utilisateur
 function checkConnection() {
   if (sessionStorage.getItem("authenticated") === "true") {
-    console.log("Je suis bien connecter");
     generateProjects();
     administatorTools();
     initAddEventListenerModale();
@@ -130,7 +127,6 @@ function checkConnection() {
     viewPhotoGallery();
     addImage();
   } else {
-    console.log("Je suis pas connecter");
     generateFilters();
     generateProjects();
   }
