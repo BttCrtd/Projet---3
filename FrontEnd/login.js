@@ -1,15 +1,18 @@
-// Fonction permettant de gérer le contenue du lien pour accéder à la page de connection
+// Fonction permettant de gérer l'affichage du lien de connexion/déconnexion et permettant la déconnexion de l'utilisateur 
 export function loginLogout() {
   const loginLink = document.querySelector('nav a[href="login.html"]');
   loginLink.innerText = "";
   if (sessionStorage.getItem("authenticated") === "true") {
     loginLink.innerText = "logout";
+    loginLink.addEventListener("click", (event) => {
+      event.preventDefault()
+      sessionStorage.clear()
+      window.location.href = "index.html"
+    })
   } else {
     loginLink.innerText = "login";
   }
 }
-
-loginLogout();
 
 // Récupération du bouton "Se connecter"
 const submit = document.getElementById("Se-connecter");

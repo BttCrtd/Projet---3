@@ -119,6 +119,17 @@ function generateFilters() {
     });
 }
 
+// Fonction qui gére l'apparence des boutons de filtrage 
+function filterBtnAppearance(btnClicked) {
+  // Récupération de tous les boutons
+  const buttons = document.querySelectorAll(".filter-btn");
+  // Réinitialisation de l'identifiant actif des boutons
+  buttons.forEach(button => button.id = "");
+  // Ajout de l'identifiant actif du bouto qui a été clické
+  btnClicked.id = "active-btn";
+}
+
+
 // Fonction qui gére l'affichage suivant le status de l'utilisateur
 function checkConnection() {
   if (sessionStorage.getItem("authenticated") === "true") {
@@ -207,14 +218,3 @@ function header() {
     }
   }
 }
-
-// Fonction qui gére l'apparence des boutons de filtrage 
-function filterBtnAppearance(btnClicked) {
-  // Récupération de tous les boutons
-  const buttons = document.querySelectorAll(".filter-btn");
-  // Réinitialisation de l'identifiant actif des boutons
-  buttons.forEach(button => button.id = "");
-  // Ajout de l'identifiant actif du bouto qui a été clické
-  btnClicked.id = "active-btn";
-}
-
